@@ -1,0 +1,13 @@
+.form__line-container {
+    margin: 0;
+    width: 358px;
+    border-bottom: 1px solid #000;
+    opacity: .2;
+    margin-bottom: 30px;
+}
+
+@media (max-width:767px) {
+    .form__line-container {
+        width: 238px;
+    }
+}

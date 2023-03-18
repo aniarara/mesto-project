@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Место</title>
+    <link rel="stylesheet" href="pages/index.css">
+</head>
+
+<body class="page">
+    <header class="header">
+        <img class="header__logo" src="images/logo.svg" alt="иконка">
+    </header>
+    <main class="content">
+        <section class="profile">
+            <div class="profile__info-column">
+                <img class="profile__avatar" src="images/avatar.jpg">
+                <div class="profile__profile-info">
+                    <div class="profile__name-block">
+                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <input class="profile__edit-button" type="image" alt="ред." src="images/Edit-Button.svg">
+                    </div>
+                    <p class="profile__caption">Исследователь океана</p>
+                </div>
+            </div>
+            <input class="profile__plus-button" type="image" src="images/Add-Button.svg">
+        </section>
+        <section class="elements">
+            <div class="elements__element">
+                <img class="elements__image" src="images/01_sviyazhsk (1).jpg" alt="Остров-град Свияжск">
+                <div class="elements__caption">
+                    <h3 class="elements__title">Свияжск</h3>
+                    <button class="elements__like"></button>
+                </div>
+            </div>
+            <div class="elements__element">
+                <img class="elements__image" src="images/elbrus.jpg" alt="горы виднеются на горизонте">
+                <div class="elements__caption">
+                    <h3 class="elements__title">Гора Эльбрус</h3>
+                    <button class="elements__like"></button>
+                </div>
+            </div>
+            <div class="elements__element">
+                <img class="elements__image" src="images/dombay.jpg" alt="заснеженный пик горы">
+                <div class="elements__caption">
+                    <h3 class="elements__title">Домбай</h3>
+                    <button class="elements__like"></button>
+                </div>
+            </div>
+            <div class="elements__element">
+                <img class="elements__image" src="images/elbrus.jpg" alt="горы виднеются на горизонте">
+                <div class="elements__caption">
+                    <h3 class="elements__title">Гора Эльбрус</h3>
+                    <button class="elements__like"></button>
+                </div>
+            </div>
+            <div class="elements__element">
+                <img class="elements__image" src="images/dombay.jpg" alt="заснеженный пик горы">
+                <div class="elements__caption">
+                    <h3 class="elements__title">Домбай</h3>
+                    <button class="elements__like"></button>
+                </div>
+            </div>
+            <div class="elements__element">
+                <img class="elements__image" src="images/karachaevo.jpg"
+                    alt="Спасо-Преображенский Сентинский женский монастырь">
+                <div class="elements__caption">
+                    <h3 class="elements__title">Карачаево-Черкесия</h3>
+                    <button class="elements__like"></button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <h2 class="footer__title">&#169; 2020 Mesto Russia</h2>
+    </footer>
+    <div class="popup popup_opened">
+        <div class="popup__container">
+            <div class="popup__overlay"></div>
+
+            <form class="form">
+                <button class="form__close-button"></button>
+                <h2 class="form__title">Редактировать профиль</h2>
+                <fieldset class="form__input">
+                    <input class="form__input-pattern" type="text" name="Имя" placeholder="Жак-Ив Кусто">
+                </fieldset>
+                <div class="form__line-container"></div>
+                <fieldset class="form__input">
+                    <input class="form__input-pattern" type="text" name="Описание" placeholder="Исследователь океана">
+                </fieldset>
+                <div class="form__line-container"></div>
+                <button class="form__save-handler" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

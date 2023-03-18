@@ -1,0 +1,21 @@
+.page {
+    margin: 0;
+    font-family: 'Inter', 'Arial', sans-serif;
+    min-width: 320px;
+    background-color: #000;
+    color: #fff;
+}
+
+@media (min-width: 768px) {
+    .page {
+        padding-top: 45px;
+        padding-bottom: 60px;
+    }
+}
+
+@media (max-width: 767px) {
+    .page {
+        padding-top: 28px;
+        padding-bottom: 36px;
+    }
+}

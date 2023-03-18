@@ -1,0 +1,11 @@
+.profile__name-block {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+@media (max-width:767px) {
+    .profile__name-block {
+        gap: 10px;
+    }
+}

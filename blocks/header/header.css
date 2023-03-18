@@ -1,0 +1,19 @@
+.header {
+    margin: 0 auto;
+    max-width: 880px;
+    min-width: 320px;
+    border-bottom: 1px solid #545454;
+    opacity: 0.8;
+}
+
+@media (min-width: 880px) {
+    .header {
+        height: 74px;
+    }
+}
+
+@media (max-width: 879px) {
+    .header {
+        height: 56px;
+    }
+}

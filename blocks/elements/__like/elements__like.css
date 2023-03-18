@@ -1,0 +1,19 @@
+.elements__like {
+    background-image: url(../../../images/like-disabled.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: initial;
+    margin: 5px 5px 1px auto;
+    width: 22px;
+    height: 19px;
+    border: none;
+    display: flex;
+}
+
+.elements__like:hover {
+    background-image: url(../../../images/like-hover.svg);
+}
+
+.elements__like:active {
+    background-image: url(../../../images/like-active.svg);
+}

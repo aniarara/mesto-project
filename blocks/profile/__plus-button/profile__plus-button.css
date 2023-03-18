@@ -1,0 +1,16 @@
+.profile__plus-button {
+    background-color: #000;
+    height: 50px;
+    width: 150px;
+    transition: .5s;
+}
+
+.profile__plus-button:hover {
+    opacity: .6;
+}
+
+@media (max-width:767px) {
+    .profile__plus-button {
+        width: 282px;
+    }
+} 
