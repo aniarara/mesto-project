@@ -6,6 +6,9 @@
     border-radius: 2px;
     background-color: #000;
     color: #fff;
+    transition: .3s;
+    font-size: 18px;
+    line-height: 22px;
 }
 
 @media (max-width:767px) {
@@ -13,7 +16,8 @@
         width: 238px;
         height: 46px;
         margin-top: 15px;
-        transition: .3s;
+        font-size: 14px;
+        line-height: 17px;
     }
 }
 

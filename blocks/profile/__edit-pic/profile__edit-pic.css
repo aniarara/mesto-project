@@ -1,0 +1,9 @@
+.profile__edit-pic {
+    width: 10px;
+}
+
+@media (max-width:767px) {
+    .profile__edit-pic {
+        width: 7.5px
+    }
+}

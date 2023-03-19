@@ -1,5 +1,4 @@
 .header__logo {
-    position: absolute;
     width: 142px;
     height: 33px;
 }
@@ -8,6 +7,6 @@
 @media (max-width: 879px) {
     .header__logo {
         width: 104px;
-        left: 27px
+        padding-left: 27px;
     }
 }

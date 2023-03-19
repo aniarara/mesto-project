@@ -1,8 +1,15 @@
 .profile__edit-button {
-    border: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 1px solid #FFFFFF;
+    transition: .5s;
     width: 24px;
     height: 24px;
-    transition: .5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .profile__edit-button:hover {

@@ -1,6 +1,6 @@
-.elements__element {
+.element {
     width: 282px;
-    height: 361px;
+    padding-bottom: 31px;
     background-color: #fff;
     border-radius: 10px;
     display: flex;

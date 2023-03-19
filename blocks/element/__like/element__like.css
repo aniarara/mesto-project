@@ -1,4 +1,4 @@
-.elements__like {
+.element__like {
     background-image: url(../../../images/like-disabled.svg);
     background-size: contain;
     background-repeat: no-repeat;
@@ -10,10 +10,10 @@
     display: flex;
 }
 
-.elements__like:hover {
-    background-image: url(../../../images/like-hover.svg);
+.element__like:hover {
+    opacity: .5;
 }
 
-.elements__like:active {
+.element__like:active {
     background-image: url(../../../images/like-active.svg);
 }

@@ -1,4 +1,4 @@
-.form__close-button {
+.popup__close-button {
     margin: 0;
     border: none;
     background-color: initial;
@@ -10,10 +10,11 @@
     position: absolute;
     top: -40px;
     right: -40px;
+    cursor: pointer;
 }
 
 @media (max-width:767px) {
-    .form__close-button {
+    .popup__close-button {
         width: 20px;
         height: 20px;
         top: -36px;
@@ -22,6 +23,6 @@
     }
 }
 
-.form__close-button:hover {
+.popup__close-button:hover {
     opacity: .6;
 }

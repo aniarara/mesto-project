@@ -1,0 +1,9 @@
+.add-button__pic {
+    width: 22px;
+}
+
+@media (max-width:767px) {
+    .add-button__pic {
+        width: 16px;
+    }
+}
