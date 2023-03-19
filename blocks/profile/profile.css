@@ -9,6 +9,6 @@
 @media (max-width:767px) {
     .profile {
         flex-direction: column;
-        gap: 36px;
+        gap: 33px;
     }
 }

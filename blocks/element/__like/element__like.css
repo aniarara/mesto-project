@@ -8,6 +8,7 @@
     height: 19px;
     border: none;
     display: flex;
+    cursor: pointer;
 }
 
 .element__like:hover {

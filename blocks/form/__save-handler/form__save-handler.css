@@ -9,6 +9,7 @@
     transition: .3s;
     font-size: 18px;
     line-height: 22px;
+    cursor: pointer;
 }
 
 @media (max-width:767px) {

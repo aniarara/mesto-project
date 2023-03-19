@@ -1,9 +1,9 @@
-.add-button__pic {
+.profile__add-pic {
     width: 22px;
 }
 
 @media (max-width:767px) {
-    .add-button__pic {
+    .profile__add-pic {
         width: 16px;
     }
 }

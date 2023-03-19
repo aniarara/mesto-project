@@ -7,7 +7,7 @@
 
 ## ссылка на проект  
 
-[https://github.com/arararararararararararararar/mesto-project]  
+[https://arararararararararararararar.github.io/mesto-project/]  
 
 ## ссылка на мой гитхаб  
 

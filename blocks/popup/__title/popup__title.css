@@ -4,7 +4,7 @@
     font-size: 24px;
     line-height: 29px;
     width: 358px;
-    margin-bottom: 54px;
+    padding-bottom: 51px;
 }
 
 @media (max-width:767px) {
@@ -12,6 +12,6 @@
         width: 238px;
         font-size: 18px;
         line-height: 22px;
-        margin-bottom: 75px;
+        padding-bottom: 75px;
     }
 }

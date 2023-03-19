@@ -16,76 +16,76 @@
     <main class="content">
         <section class="profile">
             <div class="profile__info-column">
-                <img class="profile__avatar" src="images/avatar.jpg" alt="фото">
+                <img class="profile__avatar" src="images/avatar.jpg" alt="фото профиля, Жак-Ив Кусто в красной шапке">
                 <div class="profile__profile-info">
                     <div class="profile__name-block">
                         <h1 class="profile__name">Жак-Ив Кусто</h1>
-                        <button class="profile__edit-button" type="button" alt="ред.">
-                            <img class="profile__edit-pic" src="images/Edit-Button.svg"></button>
+                        <button class="profile__edit-button" type="button">
+                            <img class="profile__edit-pic" src="images/Edit-Button.svg" alt="ред."></button>
                     </div>
                     <p class="profile__caption">Исследователь океана</p>
                 </div>
             </div>
-            <button class="add-button" type="button" alt="добавить">
-                <img class="add-button__pic" src="images/plus-button.svg">
+            <button class="profile__add-button" type="button">
+                <img class="profile__add-pic" src="images/plus-button.svg" alt="добавить">
             </button>
         </section>
         <section class="elements">
-            <div class="element">
+            <article class="element">
                 <img class="element__image" src="images/01_sviyazhsk.jpg" alt="Остров-град Свияжск">
                 <div class="element__caption">
                     <h2 class="element__title">Свияжск</h2>
                     <button class="element__like" type="button"></button>
                 </div>
-            </div>
-            <div class="element">
-                <img class="element__image" src="images/elbrus.jpg" alt="горы виднеются на горизонте">
+            </article>
+            <article class="element">
+                <img class="element__image" src="images/elton.jpg" alt="красное соленое озеро, вид сверху">
                 <div class="element__caption">
-                    <h2 class="element__title">Гора Эльбрус</h2>
+                    <h2 class="element__title">Озеро Эльтон</h2>
                     <button class="element__like" type="button"></button>
                 </div>
-            </div>
-            <div class="element">
+            </article>
+            <article class="element">
                 <img class="element__image" src="images/dombay.jpg" alt="заснеженный пик горы">
                 <div class="element__caption">
                     <h2 class="element__title">Домбай</h2>
                     <button class="element__like" type="button"></button>
                 </div>
-            </div>
-            <div class="element">
+            </article>
+            <article class="element">
                 <img class="element__image" src="images/elbrus.jpg" alt="горы виднеются на горизонте">
                 <div class="element__caption">
                     <h2 class="element__title">Гора Эльбрус</h2>
                     <button class="element__like" type="button"></button>
                 </div>
-            </div>
-            <div class="element">
+            </article>
+            <article class="element">
                 <img class="element__image" src="images/dombay.jpg" alt="заснеженный пик горы">
                 <div class="element__caption">
                     <h2 class="element__title">Домбай</h2>
                     <button class="element__like" type="button"></button>
                 </div>
-            </div>
-            <div class="element">
+            </article>
+            <article class="element">
                 <img class="element__image" src="images/karachaevo.jpg"
                     alt="Спасо-Преображенский Сентинский женский монастырь">
                 <div class="element__caption">
                     <h2 class="element__title">Карачаево-Черкесия</h2>
                     <button class="element__like" type="button"></button>
                 </div>
-            </div>
+            </article>
         </section>
     </main>
     <footer class="footer">
         <p class="footer__title">&#169; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup "> <!-- popup_status_opened -->
+    <div class="popup"> <!-- popup_opened -->
         <div class="popup__container">
             <button class="popup__close-button" type="button"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="form" action="" method="post" name="profile">
-                    <input class="form__input" type="text" name="name" placeholder="Жак-Ив Кусто">
-                    <input class="form__input" type="text" name="contain" placeholder="Исследователь океана">
+            <form class="form" action="#" method="post" name="profile">
+                <input class="form__input" type="text" name="name" placeholder="Жак-Ив Кусто">
+                <input class="form__input" type="text" name="contain" placeholder="Исследователь океана">
                 <button class="form__save-handler" type="submit">Сохранить</button>
             </form>
         </div>

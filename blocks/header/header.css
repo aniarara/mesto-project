@@ -2,17 +2,17 @@
     margin: 0 auto;
     max-width: 880px;
     min-width: 320px;
-    border-bottom: 1px solid rgba(84, 84, 84, .8);
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
 }
 
 @media (min-width: 880px) {
     .header {
-        height: 74px;
+        min-height: 74px;
     }
 }
 
 @media (max-width: 879px) {
     .header {
-        height: 56px;
+        min-height: 56px;
     }
 }
