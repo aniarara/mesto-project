@@ -37,6 +37,7 @@
                     <h2 class="element__title">Свияжск</h2>
                     <button class="element__like" type="button"></button>
                 </div>
+                <button class="element__trash-button"></button>
             </article>
             <article class="element">
                 <img class="element__image" src="images/elton.jpg" alt="красное соленое озеро, вид сверху">
@@ -44,6 +45,7 @@
                     <h2 class="element__title">Озеро Эльтон</h2>
                     <button class="element__like" type="button"></button>
                 </div>
+                <button class="element__trash-button"></button>
             </article>
             <article class="element">
                 <img class="element__image" src="images/mariy-chodra.jpg" alt="густой лес на берегу озера">
@@ -51,6 +53,7 @@
                     <h2 class="element__title">Марий Чодра</h2>
                     <button class="element__like" type="button"></button>
                 </div>
+                <button class="element__trash-button"></button>
             </article>
             <article class="element">
                 <img class="element__image" src="images/elbrus.jpg" alt="горы виднеются на горизонте">
@@ -58,6 +61,7 @@
                     <h2 class="element__title">Гора Эльбрус</h2>
                     <button class="element__like" type="button"></button>
                 </div>
+                <button class="element__trash-button"></button>
             </article>
             <article class="element">
                 <img class="element__image" src="images/dombay.jpg" alt="заснеженный пик горы">
@@ -65,6 +69,7 @@
                     <h2 class="element__title">Домбай</h2>
                     <button class="element__like" type="button"></button>
                 </div>
+                <button class="element__trash-button"></button>
             </article>
             <article class="element">
                 <img class="element__image" src="images/karachaevo.jpg"
@@ -73,23 +78,45 @@
                     <h2 class="element__title">Карачаево-Черкесия</h2>
                     <button class="element__like" type="button"></button>
                 </div>
+                <button class="element__trash-button"></button>
             </article>
         </section>
     </main>
     <footer class="footer">
         <p class="footer__title">&#169; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup"> 
+    <div class="popup edit-profile-popup"> 
         <div class="popup__container">
-            <button class="popup__close-button" type="button"></button>
+            <button class="popup__close-button edit-profile-popup__close-button" type="button"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="form" action="#" method="post" name="profile">
-                <input class="form__input" type="text" name="name" placeholder="Жак-Ив Кусто">
-                <input class="form__input" type="text" name="contain" placeholder="Исследователь океана">
+            <form class="form edit-profile-form" action="#" method="post" name="profile">
+                <input class="form__input edit-profile-form__input" type="text" name="name" placeholder="Жак-Ив Кусто">
+                <input class="form__input edit-profile-form__input" type="text" name="contain" placeholder="Исследователь океана">
                 <button class="form__save-handler" type="submit">Сохранить</button>
             </form>
         </div>
     </div>
+    <div class="popup add-card-popup"> 
+        <div class="popup__container">
+            <button class="popup__close-button add-card-popup__close-button" type="button"></button>
+            <h2 class="popup__title">Новое место</h2>
+            <form class="form add-card-form" action="#" method="post" name="profile">
+                <input class="form__input add-card-form__input" type="text" name="name" placeholder="Название">
+                <input class="form__input add-card-form__input" type="text" name="contain" placeholder="Ссылка на картинку">
+                <button class="form__save-handler" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+    <template id="add-element">
+        <article class="element add-element">
+            <img class="element__image add-element__image" src='#' alt='здесь должна быть картинка'>
+            <div class="element__caption add-element__caption">
+                <h2 class="element__title add-element__title"></h2>
+                <button class="element__like add-element__like" type="button"></button>
+            </div>
+            <button class="element__trash-button add-element__trash-button"></button>
+        </article>
+    </template>
     <script src="index.js"></script>
 </body>
 
