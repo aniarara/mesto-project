@@ -6,6 +6,7 @@
     height: 50px;
     width: 150px;
     cursor: pointer;
+    transition: .5s;
 }
 
 @media (max-width:767px) {
