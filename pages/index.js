@@ -50,7 +50,7 @@ const initialCards = [
     }
 ];
 
-window.addEventListener('load', initialCards.forEach(function(element) {
+window.addEventListener('load', initialCards.forEach(function (element) {
     const elementTemplate = document.querySelector('#add-element').content;
     const addElementNewCard = elementTemplate.querySelector('.add-element').cloneNode(true);
     addElementNewCard.querySelector('.add-element__title').textContent = element.name;
@@ -64,9 +64,21 @@ window.addEventListener('load', initialCards.forEach(function(element) {
     trashButton.addEventListener('click', function () {
         const removingElement = trashButton.closest('.element');
         removingElement.remove();
-});
+    });
+    //попап картинки
+    const addElementImage = addElementNewCard.querySelector('.add-element__image')
+    addElementImage.addEventListener('click', function () {
+        const imagePopup = document.querySelector('.image-popup')
+        imagePopup.classList.toggle('popup_opened');
+        imagePopup.querySelector('.image-popup__image').src = element.link;
+        imagePopup.querySelector('.image-popup__caption').textContent = element.name;
+        //закрытие попапа с картинкой
+        imagePopup.querySelector('.image-popup__close-button').addEventListener('click', function() {
+            imagePopup.classList.toggle('popup_opened');
+        })
+    })
     elementsContainer.append(addElementNewCard);
-}) );
+}));
 
 //edit rrofile popup function
 function editPopupOpen() {
@@ -106,9 +118,9 @@ function addElementFunction(cardTitle, cardLink) {
     const addElementNewCard = elementTemplate.querySelector('.add-element').cloneNode(true);
     addElementNewCard.querySelector('.add-element__title').textContent = `${cardTitle.value}`;
     addElementNewCard.querySelector('.add-element__image').setAttribute('src', `${cardLink.value}`);
-        //добавление карточки в начало массива
-    initialCards.unshift({ 
-        name: `${cardTitle.value}`, 
+    //добавление карточки в начало массива
+    initialCards.unshift({
+        name: `${cardTitle.value}`,
         link: `${cardLink.value}`
     });
     //функция лайка
@@ -120,7 +132,8 @@ function addElementFunction(cardTitle, cardLink) {
     trashButton.addEventListener('click', function () {
         const removingElement = trashButton.closest('.element');
         removingElement.remove();
-});
+    });
+    
     elementsContainer.prepend(addElementNewCard);
 }
 
@@ -134,3 +147,5 @@ function addFormSubmitHandler(evt) {
     addCardLinkInput.value = '';
 }
 addFormElement.addEventListener('submit', addFormSubmitHandler);
+
+//image popup
