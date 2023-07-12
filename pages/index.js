@@ -116,8 +116,10 @@ addCardPopup.querySelector('.add-card-popup__close-button').addEventListener('cl
 function addElementFunction(cardTitle, cardLink) {
     const elementTemplate = document.querySelector('#add-element').content;
     const addElementNewCard = elementTemplate.querySelector('.add-element').cloneNode(true);
-    addElementNewCard.querySelector('.add-element__title').textContent = `${cardTitle.value}`;
-    addElementNewCard.querySelector('.add-element__image').setAttribute('src', `${cardLink.value}`);
+    const addElementTitle = addElementNewCard.querySelector('.add-element__title');
+    addElementTitle.textContent = `${cardTitle.value}`;
+    const addElementLink = addElementNewCard.querySelector('.add-element__image')
+    addElementLink.setAttribute('src', `${cardLink.value}`);
     //добавление карточки в начало массива
     initialCards.unshift({
         name: `${cardTitle.value}`,
@@ -133,7 +135,7 @@ function addElementFunction(cardTitle, cardLink) {
         const removingElement = trashButton.closest('.element');
         removingElement.remove();
     });
-    
+
     elementsContainer.prepend(addElementNewCard);
 }
 
