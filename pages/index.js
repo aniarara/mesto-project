@@ -59,6 +59,12 @@ window.addEventListener('load', initialCards.forEach(function(element) {
     addElementNewCard.querySelector('.element__like').addEventListener('click', function (evt) {
         evt.target.classList.toggle('element__like_active');
     });
+    //удаление карточки
+    const trashButton = addElementNewCard.querySelector('.element__trash-button')
+    trashButton.addEventListener('click', function () {
+        const removingElement = trashButton.closest('.element');
+        removingElement.remove();
+});
     elementsContainer.append(addElementNewCard);
 }) );
 
@@ -100,17 +106,21 @@ function addElementFunction(cardTitle, cardLink) {
     const addElementNewCard = elementTemplate.querySelector('.add-element').cloneNode(true);
     addElementNewCard.querySelector('.add-element__title').textContent = `${cardTitle.value}`;
     addElementNewCard.querySelector('.add-element__image').setAttribute('src', `${cardLink.value}`);
-    //функция лайка
-    addElementNewCard.querySelector('.element__like').addEventListener('click', function (evt) {
-        evt.target.classList.toggle('element__like_active');
-    });
-    //добавление карточки в начало массива
+        //добавление карточки в начало массива
     initialCards.unshift({ 
         name: `${cardTitle.value}`, 
         link: `${cardLink.value}`
     });
-    console.log(initialCards);
-    console.log(addElementNewCard);
+    //функция лайка
+    addElementNewCard.querySelector('.element__like').addEventListener('click', function (evt) {
+        evt.target.classList.toggle('element__like_active');
+    });
+    //удаление карточки
+    const trashButton = addElementNewCard.querySelector('.element__trash-button')
+    trashButton.addEventListener('click', function () {
+        const removingElement = trashButton.closest('.element');
+        removingElement.remove();
+});
     elementsContainer.prepend(addElementNewCard);
 }
 
