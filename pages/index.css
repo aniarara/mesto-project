@@ -41,3 +41,23 @@
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__save-handler/form__save-handler.css);
 
+.image-popup {
+    background-color: rgba(0, 0, 0, .9);
+}
+
+.image-popup__container {
+    position: relative;
+}
+
+.image-popup__image {
+    max-width: 75vw;
+    max-height: 75vh;
+}
+
+.image-popup__caption {
+    margin: 0;
+    margin-top: 10px;
+    max-width: 291px;
+    font-size: 12px;
+    line-height: 14.52px;
+}
