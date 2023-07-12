@@ -134,6 +134,3 @@ function addFormSubmitHandler(evt) {
     addCardLinkInput.value = '';
 }
 addFormElement.addEventListener('submit', addFormSubmitHandler);
-
-//remove card 
-
