@@ -1,5 +1,4 @@
 //переменные
-// const popup = document.querySelector('.popup');
 const closeButtons = document.querySelectorAll('.popup__close-button');
 // edit profile form
 const editProfilePopup = document.querySelector('.edit-profile-popup');
@@ -69,7 +68,7 @@ function closePopup(popup) {
 }
 
 //создание карточки
-function createCard (element) {
+function createCard(element) {
     const elementTemplate = document.querySelector('#add-element').content;
     const createdCard = elementTemplate.querySelector('.add-element').cloneNode(true);
     createdCard.querySelector('.add-element__title').textContent = element.name;
@@ -94,19 +93,19 @@ function createCard (element) {
         imagePopupImage.src = element.link;
         imagePopupImage.alt = element.name;
         imagePopup.querySelector('.image-popup__caption').textContent = element.name;
-        //закрытие попапа с картинкой
     })
-    elementsContainer.prepend(createdCard);
+    return createdCard;
 };
 
 //добавление карточек при открытии страницы
-window.addEventListener('load', initialCards.forEach(createCard));
-
+window.addEventListener('load', initialCards.forEach(function callback(currentValue) {
+    elementsContainer.prepend(createCard(currentValue));
+}));
 
 //кнопка закрытия
 closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
+    const popup = button.closest('.popup');
+    button.addEventListener('click', () => closePopup(popup));
 });
 
 //edit profile popup function
@@ -127,12 +126,11 @@ function editFormSubmitHandler(evt) {
 }
 formElement.addEventListener('submit', editFormSubmitHandler);
 
-//добавление новой карточки
 //add card function
-function addButtonPopup () {
+function addButtonPopup() {
     openPopup(addCardPopup);
-    addCardPlaceInput.value = '';
-    addCardLinkInput.value = '';
+    addCardPlaceInput.reset();
+    addCardLinkInput.reset();
 }
 
 profileAddButton.addEventListener('click', addButtonPopup);
@@ -142,34 +140,9 @@ function addFormSubmitHandler(evt) {
     evt.preventDefault();
     addCardObj.name = addCardPlaceInput.value;
     addCardObj.link = addCardLinkInput.value;
-    createCard(addCardObj);
     closePopup(addCardPopup);
-    addCardPlaceInput.value = '';
-    addCardLinkInput.value = '';
+    addCardPlaceInput.reset();
+    addCardLinkInput.reset();
+    elementsContainer.prepend(createCard(addCardObj));
 }
 addFormElement.addEventListener('submit', addFormSubmitHandler);
-
-
-//отдельно на кнопку submit формы add card вызывается функция с аргументами значений из инпутов формы
-
-//в dom вставляем все карточки массивом(че?)
-
-//ф-я не должна дублироваться, можно ее вызов засунуть в слушатели
-
-// add card
-// function createCard(cardTitle, cardLink) {
-//     addElementTitle.textContent = `${cardTitle.value}`;
-//     const addElementLink = createdCard.querySelector('.add-element__image')
-//     addElementLink.setAttribute('src', `${cardLink.value}`);
-//     //добавление карточки в начало массива
-//вот это не надо а тчо надо я не пойму
-//не надо записывать новые карточки в массив жестб
-//     initialCards.unshift({
-//         name: `${cardTitle.value}`,
-//         link: `${cardLink.value}`
-//     });
-// }
-
-// //add new card
-// //add card popup close
-// addCardPopup.querySelector('.add-card-popup__close-button').addEventListener('click', addButtonPopup);
