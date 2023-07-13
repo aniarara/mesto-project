@@ -1,4 +1,5 @@
 //переменные
+// const popup = document.querySelector('.popup');
 const closeButtons = document.querySelectorAll('.popup__close-button');
 // edit profile form
 const editProfilePopup = document.querySelector('.edit-profile-popup');
@@ -129,8 +130,7 @@ formElement.addEventListener('submit', editFormSubmitHandler);
 //add card function
 function addButtonPopup() {
     openPopup(addCardPopup);
-    addCardPlaceInput.reset();
-    addCardLinkInput.reset();
+    addFormElement.reset();
 }
 
 profileAddButton.addEventListener('click', addButtonPopup);
@@ -141,8 +141,7 @@ function addFormSubmitHandler(evt) {
     addCardObj.name = addCardPlaceInput.value;
     addCardObj.link = addCardLinkInput.value;
     closePopup(addCardPopup);
-    addCardPlaceInput.reset();
-    addCardLinkInput.reset();
+    addFormElement.reset();
     elementsContainer.prepend(createCard(addCardObj));
 }
 addFormElement.addEventListener('submit', addFormSubmitHandler);
