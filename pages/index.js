@@ -28,7 +28,8 @@ const addCardObj = {
 }
 //image popup
 const imagePopup = document.querySelector('.image-popup');
-const imagePopupImage = imagePopup.querySelector('.image-popup__image')
+const imagePopupImage = imagePopup.querySelector('.image-popup__image');
+const imagePopupCaption = imagePopup.querySelector('.image-popup__caption');
 
 //cards array
 const initialCards = [
@@ -93,7 +94,7 @@ function createCard(element) {
         openPopup(imagePopup);
         imagePopupImage.src = element.link;
         imagePopupImage.alt = element.name;
-        imagePopup.querySelector('.image-popup__caption').textContent = element.name;
+        imagePopupCaption.textContent = element.name;
     })
     return createdCard;
 };
