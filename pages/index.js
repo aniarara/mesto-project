@@ -28,6 +28,7 @@ const addCardObj = {
 }
 //image popup
 const imagePopup = document.querySelector('.image-popup');
+const imagePopupImage = imagePopup.querySelector('.image-popup__image')
 
 //cards array
 const initialCards = [
@@ -90,7 +91,6 @@ function createCard(element) {
     const addElementImage = createdCardImage;
     addElementImage.addEventListener('click', function () {
         openPopup(imagePopup);
-        const imagePopupImage = imagePopup.querySelector('.image-popup__image')
         imagePopupImage.src = element.link;
         imagePopupImage.alt = element.name;
         imagePopup.querySelector('.image-popup__caption').textContent = element.name;
