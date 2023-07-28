@@ -61,14 +61,10 @@ const initialCards = [
 
 //функции
 //открытие попапа
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-}
+let openPopup = popup => popup.classList.add('popup_opened');
 
 //закрытие попапа
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
-}
+let closePopup = popup => popup.classList.remove('popup_opened');
 
 //создание карточки
 function createCard(element) {
@@ -90,7 +86,7 @@ function createCard(element) {
     });
     //попап картинки
     const addElementImage = createdCardImage;
-    addElementImage.addEventListener('click', function () {
+    addElementImage.addEventListener('click', () => {
         openPopup(imagePopup);
         imagePopupImage.src = element.link;
         imagePopupImage.alt = element.name;
@@ -100,7 +96,7 @@ function createCard(element) {
 };
 
 //добавление карточек при открытии страницы
-window.addEventListener('load', initialCards.forEach(function callback(currentValue) {
+window.addEventListener('load', initialCards.forEach((currentValue) => {
     elementsContainer.prepend(createCard(currentValue));
 }));
 
@@ -111,7 +107,7 @@ closeButtons.forEach((button) => {
 });
 
 //edit profile popup function
-function editPopupOpen() {
+let editPopupOpen = () => {
     openPopup(editProfilePopup);
     editProfileNameInput.value = profileName.textContent;
     editProfileContentInput.value = profileCaption.textContent;
@@ -120,7 +116,7 @@ function editPopupOpen() {
 document.querySelector('.profile__edit-button').addEventListener('click', editPopupOpen);
 
 //edit profile form save
-function editFormSubmitHandler(evt) {
+let editFormSubmitHandler = (evt) => {
     evt.preventDefault();
     profileName.textContent = `${editProfileNameInput.value}`;
     profileCaption.textContent = `${editProfileContentInput.value}`;
@@ -129,7 +125,7 @@ function editFormSubmitHandler(evt) {
 formElement.addEventListener('submit', editFormSubmitHandler);
 
 //add card function
-function addButtonPopup() {
+let addButtonPopup = () => {
     openPopup(addCardPopup);
     addFormElement.reset();
 }
@@ -137,7 +133,7 @@ function addButtonPopup() {
 profileAddButton.addEventListener('click', addButtonPopup);
 
 // add card form save
-function addFormSubmitHandler(evt) {
+let addFormSubmitHandler = (evt) => {
     evt.preventDefault();
     addCardObj.name = addCardPlaceInput.value;
     addCardObj.link = addCardLinkInput.value;
