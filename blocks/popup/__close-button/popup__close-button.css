@@ -2,7 +2,7 @@
     margin: 0;
     border: none;
     background-color: initial;
-    background-image: url(../../../images/Close-Icon.svg);
+    background-image: url(../../../src/images/Close-Icon.svg);
     background-position: center;
     background-size: cover;
     width: 32px;
