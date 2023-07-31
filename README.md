@@ -17,7 +17,7 @@
 • BEM Nested methodology
 
 
-## [Mesto](https://aniarara.github.io/mesto-project/) на Github Pages:
+## [Mesto](https://aniarara.github.io/mesto-project/) на Github Pages
 
 ## My Github:
 [aniarara](https://github.com/aniarara)
