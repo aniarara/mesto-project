@@ -142,3 +142,9 @@ let addFormSubmitHandler = (evt) => {
     elementsContainer.prepend(createCard(addCardObj));
 }
 addFormElement.addEventListener('submit', addFormSubmitHandler);
+
+//задача ветки
+//обратиться к форме и ее элементам
+//заменить во всех частях кода
+
+//валидация
