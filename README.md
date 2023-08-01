@@ -7,14 +7,14 @@
 Пользователь может  редактировать профиль, изменять аватар, добавлять новые карточки, удалять их, ставить и  снимать лайки. Любую карточку можно открыть и посмотреть изображение в увеличенном масштабе.
 
 ## Какие технологии были использованы на данный момент
-• HTML
-• CSS
-· Adaptive
-· Flexbox
-· Grid Layout
-• JavaScript
-· Form validation
-• BEM Nested methodology
+⋅⋅* HTML
+⋅⋅* CSS
+⋅⋅* Adaptive
+⋅⋅* Flexbox
+⋅⋅* Grid Layout
+⋅⋅* JavaScript
+⋅⋅* Form validation
+⋅⋅* BEM Nested methodology
 
 
 ## [Mesto](https://aniarara.github.io/mesto-project/) на Github Pages
