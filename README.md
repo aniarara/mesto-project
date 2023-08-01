@@ -8,13 +8,13 @@
 
 ## Какие технологии были использованы на данный момент
 * HTML
-* CSS
+- CSS
 - Adaptive
 - Flexbox
 - Grid Layout
 * JavaScript
-- Form validation
-* BEM Nested methodology
+* Form validation
+- BEM Nested methodology
 
 
 ## [Mesto](https://aniarara.github.io/mesto-project/) на Github Pages
