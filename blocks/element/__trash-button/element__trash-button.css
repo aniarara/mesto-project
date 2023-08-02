@@ -1,5 +1,5 @@
 .element__trash-button {
-    background-image: url(../../../images/Trash.svg);
+    background-image: url(../../../src/images/Trash.svg);
     background-size: contain;
     background-repeat: no-repeat;
     background-color: initial;
