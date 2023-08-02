@@ -61,20 +61,20 @@ const initialCards = [
 ];
 
 //функции
-function closeByEscape (evt) {
+const closeByEscape = (evt) => {
         if (evt.key === 'Escape') {
             closePopup(evt.target.closest('.popup'))
         }
     };
 
 //открытие попапа
-let openPopup = popup => {
+const openPopup = popup => {
     popup.classList.add('popup_opened');
     popup.addEventListener('keydown', closeByEscape); 
 }
 
 //закрытие попапа
-let closePopup = popup => {
+const closePopup = popup => {
     popup.classList.remove('popup_opened');
     popup.removeEventListener('keydown', closeByEscape);
 } 
@@ -88,12 +88,12 @@ function createCard(element) {
     createdCardImage.src = element.link;
     createdCardImage.alt = element.name;
     // функция лайка
-    createdCard.querySelector('.element__like').addEventListener('click', function (evt) {
+    createdCard.querySelector('.element__like').addEventListener('click', (evt) => {
         evt.target.classList.toggle('element__like_active');
     });
     //удаление карточки
     const trashButton = createdCard.querySelector('.element__trash-button')
-    trashButton.addEventListener('click', function () {
+    trashButton.addEventListener('click', () => {
         const removingElement = trashButton.closest('.element');
         removingElement.remove();
     });
@@ -118,20 +118,6 @@ closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
     button.addEventListener('click', () => closePopup(popup));
 });
-
-// const inputs = document.querySelectorAll('input');
-
-// //закрытие попапа нажатием escape 
-// inputs.forEach((input) => {
-//     const popup = input.closest('.popup');
-//     input.addEventListener('keydown', function (evt) {
-//         if (evt.key === 'Escape') {
-//             closePopup(popup)
-//         }
-//     });
-// });
-
-
 
 //edit profile popup function
 let editPopupOpen = () => {
