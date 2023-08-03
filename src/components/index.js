@@ -1,5 +1,6 @@
 //переменные
 // const popup = document.querySelector('.popup');
+const popups = document.querySelectorAll('.popup');
 const closeButtons = document.querySelectorAll('.popup__close-button');
 // edit profile form
 const editProfilePopup = document.querySelector('.edit-profile-popup');
@@ -143,8 +144,11 @@ let addFormSubmitHandler = (evt) => {
 }
 addFormElement.addEventListener('submit', addFormSubmitHandler);
 
-//задача ветки
-//обратиться к форме и ее элементам
-//заменить во всех частях кода
-
-//валидация
+//closing popups by overlay
+popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+        if (popup === evt.target) {
+            closePopup(popup);
+        }
+    }) 
+})
