@@ -151,4 +151,4 @@ popups.forEach((popup) => {
             closePopup(popup);
         }
     }) 
-})
+});
