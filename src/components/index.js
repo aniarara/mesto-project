@@ -1,27 +1,28 @@
 //переменные
 const popups = document.querySelectorAll('.popup');
 const closeButtons = document.querySelectorAll('.popup__close-button');
+const saveButton = document.querySelector('.form__save-handler');
+
 // edit profile form
 const editProfileForm = document.forms.editProfile;
 const editProfileFormName = editProfileForm.elements.name;
 const editProfileFormContain = editProfileForm.elements.contain;
-const saveButton = document.querySelector('.form__save-handler');
 
 //profile
 const profileName = document.querySelector('.profile__name');
 const profileCaption = document.querySelector('.profile__caption');
 
-//add card form
+//add card
 const profileAddButton = document.querySelector('.profile__add-button');
 const addCardPopup = document.querySelector('.add-card-popup');
-const addFormElement = document.querySelector('.add-card-form');
 const elementsContainer = document.querySelector('.elements');
-//куда
+//add card form
+const addCardForm = document.forms.addCardForm;
+const addCardFormName = addCardForm.elements.name;
+const addCardFormContain = addCardForm.elements.contain;
+
 const elementTitle = document.querySelector('.element__title');
 const elementImage = document.querySelector('.element__image');
-//откуда
-const addCardPlaceInput = document.querySelectorAll('.add-card-form__input')[0];
-const addCardLinkInput = document.querySelectorAll('.add-card-form__input')[1];
 const addCardObj = {
     name: '',
     link: ''
@@ -60,6 +61,22 @@ const initialCards = [
 ];
 
 //функции
+//closing popups by overlay
+popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+        if (popup === evt.target) {
+            closePopup(popup);
+        }
+    })
+});
+
+//closing popups by escape
+const closeByEscape = (evt) => {
+    if (evt.key === 'Escape') {
+        closePopup(evt.target.closest('.popup'))
+    }
+};
+
 //открытие попапа
 const openPopup = popup => {
     popup.classList.add('popup_opened');
@@ -113,22 +130,6 @@ closeButtons.forEach((button) => {
     button.addEventListener('click', () => closePopup(popup));
 });
 
-//closing popups by overlay
-popups.forEach((popup) => {
-    popup.addEventListener('click', (evt) => {
-        if (popup === evt.target) {
-            closePopup(popup);
-        }
-    })
-});
-
-//closing popups by escape
-const closeByEscape = (evt) => {
-    if (evt.key === 'Escape') {
-        closePopup(evt.target.closest('.popup'))
-    }
-};
-
 // проверка валидации для кнопки сохранения
 const checkSaveButton = (checkname, checkcontent) => {
     if ((checkname === true) && (checkcontent === true)) {
@@ -153,13 +154,13 @@ document.querySelector('.profile__edit-button').addEventListener('click', editPo
 // валидация формы "редактирование профиля"
 editProfileForm.addEventListener('input', function (evt) {
     const nameIsValid = (
-        editProfileFormName.minlength >= 2
-        && editProfileFormName.maxlength <= 40 
+        editProfileFormName.value.length >= 2
+        && editProfileFormName.value.length <= 40 
         && !editProfileFormName.validity.patternMismatch
         );
     const сontainIsValid = (
-        editProfileFormContain.minlength >= 2
-        && editProfileFormContain.maxlength <= 200
+        editProfileFormContain.value.length >= 2
+        && editProfileFormContain.value.length <= 200
         && !editProfileFormContain.validity.patternMismatch
         );
     checkSaveButton(nameIsValid, сontainIsValid);
@@ -177,21 +178,36 @@ editProfileForm.addEventListener('submit', editFormSubmitHandler);
 
 // добавление новых карточек
 //открытие попапа
-const addButtonPopup = () => {
+const openAddButtonPopup = () => {
     openPopup(addCardPopup);
-    addFormElement.reset();
+    addCardForm.reset();
 }
 
-profileAddButton.addEventListener('click', addButtonPopup);
+profileAddButton.addEventListener('click', openAddButtonPopup);
+
+//не работает
+// валидация формы "добавление карточки"
+addCardForm.addEventListener('input', function (evt) {
+    const nameIsValid = (
+        addCardFormName.value.length >= 2
+        && addCardFormName.value.length <= 30 
+        && !addCardFormName.validity.patternMismatch
+        );
+    const сontainIsValid = true;
+    checkSaveButton(nameIsValid, сontainIsValid);
+});
+
+
+
 
 // сохранение формы
 const addFormSubmitHandler = (evt) => {
     evt.preventDefault();
-    addCardObj.name = addCardPlaceInput.value;
-    addCardObj.link = addCardLinkInput.value;
+    addCardObj.name = addCardFormName.value;
+    addCardObj.link = addCardFormContain.value;
     closePopup(addCardPopup);
-    addFormElement.reset();
+    addCardForm.reset();
     elementsContainer.prepend(createCard(addCardObj));
 }
-addFormElement.addEventListener('submit', addFormSubmitHandler);
+addCardForm.addEventListener('submit', addFormSubmitHandler);
 
