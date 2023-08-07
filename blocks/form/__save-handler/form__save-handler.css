@@ -23,6 +23,10 @@
     }
 }
 
-.form__save-handler:hover {
-    opacity: .6;
+.form__save-handler_disabled {
+    opacity: .2;
+}
+
+.form__save-handler:not([disabled]):hover {
+    opacity: .8;
 }
