@@ -19,7 +19,7 @@
 }
 
 .form__input::placeholder {
-    color: #000;
+    color: rgba(0, 0, 0, .2);
 }
 
 .form__input:focus {

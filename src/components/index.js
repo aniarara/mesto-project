@@ -131,18 +131,13 @@ closeButtons.forEach((button) => {
 });
 
 // проверка валидации для кнопки сохранения
-const checksaveButtons = (checkname, checkcontent) => {
+const checkSaveButtons = (checkname, checkcontent) => {
     saveButtons.forEach(button => {
         if ((checkname === true) && (checkcontent === true)) {
             button.removeAttribute('disabled');
-            button.classList.remove('form__save-handler_disabled');
-            console.log('testtrue');
         } else {
             button.setAttribute('disabled', true);
-            button.classList.add('form__save-handler_disabled');
-        console.log('testfalse');
-    } console.log('test2');
-    })};
+    } }) };
 
 //попап редактирования профиля
 //открытие попапа редактирования профиля
@@ -166,7 +161,7 @@ editProfileForm.addEventListener('input', function (evt) {
         && editProfileFormContain.value.length <= 200
         && !editProfileFormContain.validity.patternMismatch
         );
-        checksaveButtons(nameIsValid, сontainIsValid);
+        checkSaveButtons(nameIsValid, сontainIsValid);
 });
 //строка может быть просто пробелами или дефисами, не нравится
 
@@ -185,6 +180,7 @@ editProfileForm.addEventListener('submit', editFormSubmitHandler);
 const openAddButtonPopup = () => {
     openPopup(addCardPopup);
     addCardForm.reset();
+    checkSaveButtons();
 }
 
 profileAddButton.addEventListener('click', openAddButtonPopup);
@@ -199,7 +195,7 @@ addCardForm.addEventListener('input', function (evt) {
         (addCardFormContain.validity.patternMismatch === false)
         && addCardFormContain.value.length > 0
     );
-    checksaveButtons(nameIsValid, сontainIsValid);
+    checkSaveButtons(nameIsValid, сontainIsValid);
 });
 
 // сохранение формы
@@ -213,4 +209,5 @@ const addFormSubmitHandler = (evt) => {
 }
 addCardForm.addEventListener('submit', addFormSubmitHandler);
 
-
+//валидация не должна пропускать пустое поле после ввода первой картинки
+//стилизовать дизейбелд

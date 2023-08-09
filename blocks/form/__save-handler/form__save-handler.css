@@ -23,8 +23,10 @@
     }
 }
 
-.form__save-handler_disabled {
-    opacity: .2;
+.form__save-handler:disabled {
+    background-color: rgba(0, 0, 0, .0);
+    border: 1px solid rgba(0, 0, 0, .2);
+    color:rgba(0, 0, 0, .2);
 }
 
 .form__save-handler:not([disabled]):hover {
