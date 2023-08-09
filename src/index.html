@@ -47,7 +47,7 @@
                 placeholder="Жак-Ив Кусто"
                 minlength="2" 
                 maxlength="40"
-                pattern ='[a-zA-Zа-яА-я -]+'
+                pattern="[А-Яа-яA-Za-z\s\-]+"
                 required>
                 <input class="form__input edit-profile-form__input" 
                 type="text" 
@@ -55,7 +55,7 @@
                 placeholder="Исследователь океана" 
                 minlength="2" 
                 maxlength="200"
-                pattern ='[a-zA-Zа-яА-я -]+' 
+                pattern="[А-Яа-яA-Za-z\s\-]+"
                 required>
                 <button class="form__save-handler form__save-handler_disabled" type="submit" disabled>Сохранить</button>
             </form>
@@ -73,13 +73,14 @@
                 placeholder="Название" 
                 minlength="2" 
                 maxlength="30"
-                pattern ='[a-zA-Zа-яА-я -]+'
+                pattern ="[А-Яа-яA-Za-z\s\-]+"
                 required>
                 <input 
                 class="form__input add-card-form__input" 
                 type="url" 
                 name="contain"
                 placeholder="Ссылка на картинку"
+                pattern ="(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?"
                 required>
                 <button class="form__save-handler form__save-handler_disabled" type="submit" disabled>Сохранить</button>
             </form>

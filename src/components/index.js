@@ -1,7 +1,8 @@
 //переменные
 const popups = document.querySelectorAll('.popup');
 const closeButtons = document.querySelectorAll('.popup__close-button');
-const saveButton = document.querySelector('.form__save-handler');
+const saveButtons = document.querySelectorAll('.form__save-handler');
+const forms = document.forms;
 
 // edit profile form
 const editProfileForm = document.forms.editProfile;
@@ -61,6 +62,18 @@ const initialCards = [
 ];
 
 //функции
+//открытие попапа
+const openPopup = popup => {
+    popup.classList.add('popup_opened');
+    popup.addEventListener('keydown', closeByEscape);
+}
+
+//закрытие попапа
+const closePopup = popup => {
+    popup.classList.remove('popup_opened');
+    popup.removeEventListener('keydown', closeByEscape);
+}
+
 //closing popups by overlay
 popups.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
@@ -76,18 +89,6 @@ const closeByEscape = (evt) => {
         closePopup(evt.target.closest('.popup'))
     }
 };
-
-//открытие попапа
-const openPopup = popup => {
-    popup.classList.add('popup_opened');
-    popup.addEventListener('keydown', closeByEscape);
-}
-
-//закрытие попапа
-const closePopup = popup => {
-    popup.classList.remove('popup_opened');
-    popup.removeEventListener('keydown', closeByEscape);
-}
 
 //создание карточки
 function createCard(element) {
@@ -123,7 +124,6 @@ window.addEventListener('load', initialCards.forEach((currentValue) => {
     elementsContainer.prepend(createCard(currentValue));
 }));
 
-//общее для форм
 //кнопка закрытия попапов
 closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
@@ -131,15 +131,18 @@ closeButtons.forEach((button) => {
 });
 
 // проверка валидации для кнопки сохранения
-const checkSaveButton = (checkname, checkcontent) => {
-    if ((checkname === true) && (checkcontent === true)) {
-        saveButton.removeAttribute('disabled');
-        saveButton.classList.remove('form__save-handler_disabled');
-    } else {
-        saveButton.setAttribute('disabled', true);
-        saveButton.classList.add('form__save-handler_disabled');
-    }
-};
+const checksaveButtons = (checkname, checkcontent) => {
+    saveButtons.forEach(button => {
+        if ((checkname === true) && (checkcontent === true)) {
+            button.removeAttribute('disabled');
+            button.classList.remove('form__save-handler_disabled');
+            console.log('testtrue');
+        } else {
+            button.setAttribute('disabled', true);
+            button.classList.add('form__save-handler_disabled');
+        console.log('testfalse');
+    } console.log('test2');
+    })};
 
 //попап редактирования профиля
 //открытие попапа редактирования профиля
@@ -147,7 +150,7 @@ const editPopupOpen = () => {
     openPopup(editProfileForm.closest('.popup'));
     editProfileFormName.value = profileName.textContent;
     editProfileFormContain.value = profileCaption.textContent;
-}
+};
 
 document.querySelector('.profile__edit-button').addEventListener('click', editPopupOpen);
 
@@ -156,14 +159,14 @@ editProfileForm.addEventListener('input', function (evt) {
     const nameIsValid = (
         editProfileFormName.value.length >= 2
         && editProfileFormName.value.length <= 40 
-        && !editProfileFormName.validity.patternMismatch
+        && (editProfileFormName.validity.patternMismatch === false)
         );
     const сontainIsValid = (
         editProfileFormContain.value.length >= 2
         && editProfileFormContain.value.length <= 200
         && !editProfileFormContain.validity.patternMismatch
         );
-    checkSaveButton(nameIsValid, сontainIsValid);
+        checksaveButtons(nameIsValid, сontainIsValid);
 });
 //строка может быть просто пробелами или дефисами, не нравится
 
@@ -176,8 +179,9 @@ const editFormSubmitHandler = (evt) => {
 }
 editProfileForm.addEventListener('submit', editFormSubmitHandler);
 
-// добавление новых карточек
-//открытие попапа
+
+// //попап добавление новых карточек
+// //открытие попапа
 const openAddButtonPopup = () => {
     openPopup(addCardPopup);
     addCardForm.reset();
@@ -185,20 +189,18 @@ const openAddButtonPopup = () => {
 
 profileAddButton.addEventListener('click', openAddButtonPopup);
 
-//не работает
-// валидация формы "добавление карточки"
 addCardForm.addEventListener('input', function (evt) {
     const nameIsValid = (
         addCardFormName.value.length >= 2
         && addCardFormName.value.length <= 30 
-        && !addCardFormName.validity.patternMismatch
+        && (addCardFormName.validity.patternMismatch === false)
         );
-    const сontainIsValid = true;
-    checkSaveButton(nameIsValid, сontainIsValid);
+    const сontainIsValid = (
+        (addCardFormContain.validity.patternMismatch === false)
+        && addCardFormContain.value.length > 0
+    );
+    checksaveButtons(nameIsValid, сontainIsValid);
 });
-
-
-
 
 // сохранение формы
 const addFormSubmitHandler = (evt) => {
@@ -210,4 +212,5 @@ const addFormSubmitHandler = (evt) => {
     elementsContainer.prepend(createCard(addCardObj));
 }
 addCardForm.addEventListener('submit', addFormSubmitHandler);
+
 
