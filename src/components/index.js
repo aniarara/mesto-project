@@ -154,15 +154,19 @@ function checkValidity (element) {
         return false;
     }
 }
-     
-//валидация полей ввода edit profile form
-editProfileForm.addEventListener('input', function (evt) {
-    if (checkValidity(editProfileFormName) && checkValidity(editProfileFormContain)) {
-        editProfileForm.querySelector('.form__save-handler').removeAttribute('disabled');
+
+//проверка кнопки сохранения
+const inputCallback = (evt) => {
+    const inputCallbackform = evt.target.closest('.form');
+    if (checkValidity(evt.target)) {
+        inputCallbackform.querySelector('.form__save-handler').removeAttribute('disabled');
     } else {
-        editProfileForm.querySelector('.form__save-handler').setAttribute('disabled', true);;
+        inputCallbackform.querySelector('.form__save-handler').setAttribute('disabled', true);;
     }
-})
+}
+     
+//событие ввода символов с проверкой на валидацию edit profile form
+editProfileForm.addEventListener('input', inputCallback);
 // //строка может быть просто пробелами или дефисами, не нравится
 
 //сохранение формы редактирования профиля
@@ -185,14 +189,8 @@ const openAddButtonPopup = () => {
 
 profileAddButton.addEventListener('click', openAddButtonPopup);
 
-//валидация формы
-addCardForm.addEventListener('input', function (evt) {
-    if (checkValidity(addCardFormName) && checkValidity(addCardFormContain)) {
-        addCardForm.querySelector('.form__save-handler').removeAttribute('disabled');
-    } else {
-        addCardForm.querySelector('.form__save-handler').setAttribute('disabled', true);
-    }
-})
+//событие ввода символов с проверкой на валидацию add Card Form
+addCardForm.addEventListener('input', inputCallback);
 
 // сохранение формы
 const addFormSubmitHandler = (evt) => {
