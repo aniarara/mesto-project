@@ -1,7 +1,7 @@
 //переменные
 const popups = document.querySelectorAll('.popup');
 const closeButtons = document.querySelectorAll('.popup__close-button');
-const saveButtons = document.querySelectorAll('.form__save-handler');
+// const saveButtons = document.querySelectorAll('.form__save-handler');
 const forms = document.forms;
 
 // edit profile form
@@ -130,15 +130,6 @@ closeButtons.forEach((button) => {
     button.addEventListener('click', () => closePopup(popup));
 });
 
-// проверка валидации для кнопки сохранения
-const checkSaveButtons = (checkname, checkcontent) => {
-    saveButtons.forEach(button => {
-        if ((checkname === true) && (checkcontent === true)) {
-            button.removeAttribute('disabled');
-        } else {
-            button.setAttribute('disabled', true);
-    } }) };
-
 //попап редактирования профиля
 //открытие попапа редактирования профиля
 const editPopupOpen = () => {
@@ -149,21 +140,30 @@ const editPopupOpen = () => {
 
 document.querySelector('.profile__edit-button').addEventListener('click', editPopupOpen);
 
-// валидация формы "редактирование профиля"
+//проверка валидации инпута
+function checkValidity (element) {
+    if ((element.validity.patternMismatch === false)
+    && (element.validity.tooLong === false)
+    && (element.validity.tooShort === false)
+    && (element.validity.typeMismatch === false)
+    && (element.validity.valueMissing === false)) {
+        element.classList.remove('form__input_invalid');
+        return true;
+    } else {
+        element.classList.add('form__input_invalid');
+        return false;
+    }
+}
+     
+//валидация полей ввода edit profile form
 editProfileForm.addEventListener('input', function (evt) {
-    const nameIsValid = (
-        editProfileFormName.value.length >= 2
-        && editProfileFormName.value.length <= 40 
-        && (editProfileFormName.validity.patternMismatch === false)
-        );
-    const сontainIsValid = (
-        editProfileFormContain.value.length >= 2
-        && editProfileFormContain.value.length <= 200
-        && !editProfileFormContain.validity.patternMismatch
-        );
-        checkSaveButtons(nameIsValid, сontainIsValid);
-});
-//строка может быть просто пробелами или дефисами, не нравится
+    if (checkValidity(editProfileFormName) && checkValidity(editProfileFormContain)) {
+        editProfileForm.querySelector('.form__save-handler').removeAttribute('disabled');
+    } else {
+        editProfileForm.querySelector('.form__save-handler').setAttribute('disabled', true);;
+    }
+})
+// //строка может быть просто пробелами или дефисами, не нравится
 
 //сохранение формы редактирования профиля
 const editFormSubmitHandler = (evt) => {
@@ -180,23 +180,19 @@ editProfileForm.addEventListener('submit', editFormSubmitHandler);
 const openAddButtonPopup = () => {
     openPopup(addCardPopup);
     addCardForm.reset();
-    checkSaveButtons();
+    addCardPopup.querySelector('.form__save-handler').setAttribute('disabled', true);
 }
 
 profileAddButton.addEventListener('click', openAddButtonPopup);
 
+//валидация формы
 addCardForm.addEventListener('input', function (evt) {
-    const nameIsValid = (
-        addCardFormName.value.length >= 2
-        && addCardFormName.value.length <= 30 
-        && (addCardFormName.validity.patternMismatch === false)
-        );
-    const сontainIsValid = (
-        (addCardFormContain.validity.patternMismatch === false)
-        && addCardFormContain.value.length > 0
-    );
-    checkSaveButtons(nameIsValid, сontainIsValid);
-});
+    if (checkValidity(addCardFormName) && checkValidity(addCardFormContain)) {
+        addCardForm.querySelector('.form__save-handler').removeAttribute('disabled');
+    } else {
+        addCardForm.querySelector('.form__save-handler').setAttribute('disabled', true);
+    }
+})
 
 // сохранение формы
 const addFormSubmitHandler = (evt) => {
@@ -208,6 +204,3 @@ const addFormSubmitHandler = (evt) => {
     elementsContainer.prepend(createCard(addCardObj));
 }
 addCardForm.addEventListener('submit', addFormSubmitHandler);
-
-//валидация не должна пропускать пустое поле после ввода первой картинки
-//стилизовать дизейбелд
