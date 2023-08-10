@@ -1,27 +1,29 @@
 //переменные
 const popups = document.querySelectorAll('.popup');
 const closeButtons = document.querySelectorAll('.popup__close-button');
+// const saveButtons = document.querySelectorAll('.form__save-handler');
+const forms = document.forms;
+
 // edit profile form
 const editProfileForm = document.forms.editProfile;
 const editProfileFormName = editProfileForm.elements.name;
 const editProfileFormContain = editProfileForm.elements.contain;
-const saveButton = document.querySelector('.form__save-handler');
 
 //profile
 const profileName = document.querySelector('.profile__name');
 const profileCaption = document.querySelector('.profile__caption');
 
-//add card form
+//add card
 const profileAddButton = document.querySelector('.profile__add-button');
 const addCardPopup = document.querySelector('.add-card-popup');
-const addFormElement = document.querySelector('.add-card-form');
 const elementsContainer = document.querySelector('.elements');
-//куда
+//add card form
+const addCardForm = document.forms.addCardForm;
+const addCardFormName = addCardForm.elements.name;
+const addCardFormContain = addCardForm.elements.contain;
+
 const elementTitle = document.querySelector('.element__title');
 const elementImage = document.querySelector('.element__image');
-//откуда
-const addCardPlaceInput = document.querySelectorAll('.add-card-form__input')[0];
-const addCardLinkInput = document.querySelectorAll('.add-card-form__input')[1];
 const addCardObj = {
     name: '',
     link: ''
@@ -72,6 +74,22 @@ const closePopup = popup => {
     popup.removeEventListener('keydown', closeByEscape);
 }
 
+//closing popups by overlay
+popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+        if (popup === evt.target) {
+            closePopup(popup);
+        }
+    })
+});
+
+//closing popups by escape
+const closeByEscape = (evt) => {
+    if (evt.key === 'Escape') {
+        closePopup(evt.target.closest('.popup'))
+    }
+};
+
 //создание карточки
 function createCard(element) {
     const elementTemplate = document.querySelector('#add-element').content;
@@ -106,39 +124,11 @@ window.addEventListener('load', initialCards.forEach((currentValue) => {
     elementsContainer.prepend(createCard(currentValue));
 }));
 
-//общее для форм
 //кнопка закрытия попапов
 closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
     button.addEventListener('click', () => closePopup(popup));
 });
-
-//closing popups by overlay
-popups.forEach((popup) => {
-    popup.addEventListener('click', (evt) => {
-        if (popup === evt.target) {
-            closePopup(popup);
-        }
-    })
-});
-
-//closing popups by escape
-const closeByEscape = (evt) => {
-    if (evt.key === 'Escape') {
-        closePopup(evt.target.closest('.popup'))
-    }
-};
-
-// проверка валидации для кнопки сохранения
-const checkSaveButton = (checkname, checkcontent) => {
-    if ((checkname === true) && (checkcontent === true)) {
-        saveButton.removeAttribute('disabled');
-        saveButton.classList.remove('form__save-handler_disabled');
-    } else {
-        saveButton.setAttribute('disabled', true);
-        saveButton.classList.add('form__save-handler_disabled');
-    }
-};
 
 //попап редактирования профиля
 //открытие попапа редактирования профиля
@@ -146,25 +136,38 @@ const editPopupOpen = () => {
     openPopup(editProfileForm.closest('.popup'));
     editProfileFormName.value = profileName.textContent;
     editProfileFormContain.value = profileCaption.textContent;
-}
+};
 
 document.querySelector('.profile__edit-button').addEventListener('click', editPopupOpen);
 
-// валидация формы "редактирование профиля"
-editProfileForm.addEventListener('input', function (evt) {
-    const nameIsValid = (
-        editProfileFormName.minlength >= 2
-        && editProfileFormName.maxlength <= 40 
-        && !editProfileFormName.validity.patternMismatch
-        );
-    const сontainIsValid = (
-        editProfileFormContain.minlength >= 2
-        && editProfileFormContain.maxlength <= 200
-        && !editProfileFormContain.validity.patternMismatch
-        );
-    checkSaveButton(nameIsValid, сontainIsValid);
-});
-//строка может быть просто пробелами или дефисами, не нравится
+//проверка валидации инпута
+function checkValidity (element) {
+    if ((element.validity.patternMismatch === false)
+    && (element.validity.tooLong === false)
+    && (element.validity.tooShort === false)
+    && (element.validity.typeMismatch === false)
+    && (element.validity.valueMissing === false)) {
+        element.classList.remove('form__input_invalid');
+        return true;
+    } else {
+        element.classList.add('form__input_invalid');
+        return false;
+    }
+}
+
+//проверка кнопки сохранения
+const inputCallback = (evt) => {
+    const inputCallbackform = evt.target.closest('.form');
+    if (checkValidity(evt.target)) {
+        inputCallbackform.querySelector('.form__save-handler').removeAttribute('disabled');
+    } else {
+        inputCallbackform.querySelector('.form__save-handler').setAttribute('disabled', true);;
+    }
+}
+     
+//событие ввода символов с проверкой на валидацию edit profile form
+editProfileForm.addEventListener('input', inputCallback);
+// //строка может быть просто пробелами или дефисами, не нравится
 
 //сохранение формы редактирования профиля
 const editFormSubmitHandler = (evt) => {
@@ -175,23 +178,27 @@ const editFormSubmitHandler = (evt) => {
 }
 editProfileForm.addEventListener('submit', editFormSubmitHandler);
 
-// добавление новых карточек
-//открытие попапа
-const addButtonPopup = () => {
+
+// //попап добавление новых карточек
+// //открытие попапа
+const openAddButtonPopup = () => {
     openPopup(addCardPopup);
-    addFormElement.reset();
+    addCardForm.reset();
+    addCardPopup.querySelector('.form__save-handler').setAttribute('disabled', true);
 }
 
-profileAddButton.addEventListener('click', addButtonPopup);
+profileAddButton.addEventListener('click', openAddButtonPopup);
+
+//событие ввода символов с проверкой на валидацию add Card Form
+addCardForm.addEventListener('input', inputCallback);
 
 // сохранение формы
 const addFormSubmitHandler = (evt) => {
     evt.preventDefault();
-    addCardObj.name = addCardPlaceInput.value;
-    addCardObj.link = addCardLinkInput.value;
+    addCardObj.name = addCardFormName.value;
+    addCardObj.link = addCardFormContain.value;
     closePopup(addCardPopup);
-    addFormElement.reset();
+    addCardForm.reset();
     elementsContainer.prepend(createCard(addCardObj));
 }
-addFormElement.addEventListener('submit', addFormSubmitHandler);
-
+addCardForm.addEventListener('submit', addFormSubmitHandler);
