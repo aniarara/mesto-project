@@ -45,3 +45,18 @@
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__save-handler/form__save-handler.css);
+
+.form__field {
+    display: flex;
+    position: relative;
+}
+
+.form__input-error {
+    margin: 0;
+    max-width: 358px;
+    color: #F00;
+    font-size: 12px;
+    line-height: normal;
+    position: absolute;
+    top: 32px;
+}
