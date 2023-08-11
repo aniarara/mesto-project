@@ -6,8 +6,6 @@ const forms = document.forms;
 // edit profile form
 const editProfileForm = document.forms.editProfile;
 const editProfileFormName = editProfileForm.elements.name;
-// const editProfileFormNameError = editProfileForm.querySelector(`.${editProfileFormName.id}-error`);
-// console.log(editProfileFormNameError); 
 const editProfileFormContain = editProfileForm.elements.contain;
 
 //profile
