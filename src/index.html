@@ -41,22 +41,30 @@
             <button class="popup__close-button edit-profile-popup__close-button" type="button"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
             <form class="form edit-profile-form" action="#" method="post" name="editProfile" novalidate>
-                <input class="form__input edit-profile-form__input" 
-                type="text" 
-                name="name" 
-                placeholder="Жак-Ив Кусто"
-                minlength="2" 
-                maxlength="40"
-                pattern="[А-Яа-яA-Za-z\s\-]+"
-                required>
-                <input class="form__input edit-profile-form__input" 
-                type="text" 
-                name="contain"
-                placeholder="Исследователь океана" 
-                minlength="2" 
-                maxlength="200"
-                pattern="[А-Яа-яA-Za-z\s\-]+"
-                required>
+                <label class="form__field">
+                    <input class="form__input edit-profile-form__input" 
+                    id="edit-profile-form-input-name"
+                    type="text" 
+                    name="name" 
+                    placeholder="Жак-Ив Кусто"
+                    minlength="2" 
+                    maxlength="40"
+                    pattern="[А-Яа-яA-Za-z\s\-]+"
+                    required>
+                    <span class="form__input-error edit-profile-form-input-name-error"></span>
+                </label>
+                <label class="form__field">
+                    <input class="form__input edit-profile-form__input" 
+                    id="edit-profile-form-input-contain"
+                    type="text" 
+                    name="contain"
+                    placeholder="Исследователь океана"
+                    minlength="2" 
+                    maxlength="200"
+                    pattern="[А-Яа-яA-Za-z\s\-]+"
+                    required>
+                    <span class="form__input-error edit-profile-form-input-contain-error"></span>
+                </label>
                 <button class="form__save-handler" type="submit" disabled>Сохранить</button>
             </form>
         </div>
@@ -66,22 +74,31 @@
             <button class="popup__close-button add-card-popup__close-button" type="button"></button>
             <h2 class="popup__title">Новое место</h2>
             <form class="form add-card-form" action="#" method="post" name="addCardForm" novalidate>
-                <input 
-                class="form__input add-card-form__input" 
-                type="text" 
-                name="name" 
-                placeholder="Название" 
-                minlength="2" 
-                maxlength="30"
-                pattern ="[А-Яа-яA-Za-z\s\-]+"
-                required>
-                <input 
-                class="form__input add-card-form__input" 
-                type="url" 
-                name="contain"
-                placeholder="Ссылка на картинку"
-                pattern ="(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?"
-                required>
+                <label class="form__field">
+                    <input 
+                    id="add-card-form-input-name"
+                    class="form__input add-card-form__input"
+                    type="text" 
+                    name="name"
+                    placeholder="Название"
+                    minlength="2" 
+                    maxlength="30"
+                    pattern ="[А-Яа-яA-Za-z\s\-]+"
+                    required>
+                    <span 
+                    class="form__input-error add-card-form-input-name-error"></span>
+                </label>
+                <label class="form__field">
+                    <input 
+                    id="add-card-form-input-contain"
+                    class="form__input add-card-form__input" 
+                    type="url" 
+                    name="contain"
+                    placeholder="Ссылка на картинку"
+                    pattern ="(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?"
+                    required>
+                    <span class="form__input-error add-card-form-input-contain-error"></span>
+                </label>
                 <button class="form__save-handler" type="submit" disabled>Сохранить</button>
             </form>
         </div>

@@ -1,12 +1,13 @@
 //переменные
 const popups = document.querySelectorAll('.popup');
 const closeButtons = document.querySelectorAll('.popup__close-button');
-// const saveButtons = document.querySelectorAll('.form__save-handler');
 const forms = document.forms;
 
 // edit profile form
 const editProfileForm = document.forms.editProfile;
 const editProfileFormName = editProfileForm.elements.name;
+// const editProfileFormNameError = editProfileForm.querySelector(`.${editProfileFormName.id}-error`);
+// console.log(editProfileFormNameError); 
 const editProfileFormContain = editProfileForm.elements.contain;
 
 //profile
@@ -22,8 +23,6 @@ const addCardForm = document.forms.addCardForm;
 const addCardFormName = addCardForm.elements.name;
 const addCardFormContain = addCardForm.elements.contain;
 
-const elementTitle = document.querySelector('.element__title');
-const elementImage = document.querySelector('.element__image');
 const addCardObj = {
     name: '',
     link: ''
@@ -66,12 +65,16 @@ const initialCards = [
 const openPopup = popup => {
     popup.classList.add('popup_opened');
     popup.addEventListener('keydown', closeByEscape);
+    popup.querySelector('.form__save-handler').removeAttribute('disabled');
 }
 
 //закрытие попапа
 const closePopup = popup => {
     popup.classList.remove('popup_opened');
     popup.removeEventListener('keydown', closeByEscape);
+    popup.querySelectorAll('.form__input').forEach(function callback(input) {
+        input.classList.remove('form__input_invalid');
+    });
 }
 
 //closing popups by overlay
@@ -142,26 +145,33 @@ document.querySelector('.profile__edit-button').addEventListener('click', editPo
 
 //проверка валидации инпута
 function checkValidity (element) {
+    const elementForm = element.closest('.form');
+    const elementError = elementForm.querySelector(`.${element.id}-error`);
     if ((element.validity.patternMismatch === false)
     && (element.validity.tooLong === false)
     && (element.validity.tooShort === false)
     && (element.validity.typeMismatch === false)
     && (element.validity.valueMissing === false)) {
         element.classList.remove('form__input_invalid');
+        elementError.classList.remove('form__input-error_active');
+        elementError.textContent = '';
         return true;
     } else {
         element.classList.add('form__input_invalid');
+        elementError.classList.add('form__input-error_active');
+        elementError.textContent = element.validationMessage;
         return false;
     }
 }
 
 //проверка кнопки сохранения
 const inputCallback = (evt) => {
-    const inputCallbackform = evt.target.closest('.form');
+    const inputCallbackForm = evt.target.closest('.form');
+    const inputCallbackFormSaveButton = inputCallbackForm.querySelector('.form__save-handler');
     if (checkValidity(evt.target)) {
-        inputCallbackform.querySelector('.form__save-handler').removeAttribute('disabled');
+        inputCallbackFormSaveButton.removeAttribute('disabled');
     } else {
-        inputCallbackform.querySelector('.form__save-handler').setAttribute('disabled', true);;
+        inputCallbackFormSaveButton.setAttribute('disabled', true);
     }
 }
      
