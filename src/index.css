@@ -59,4 +59,9 @@
     line-height: normal;
     position: absolute;
     top: 32px;
+    visibility: hidden;
+}
+
+.form__input-error_active {
+    visibility: visible;
 }
