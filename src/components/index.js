@@ -70,8 +70,11 @@ const openPopup = popup => {
 const closePopup = popup => {
     popup.classList.remove('popup_opened');
     popup.removeEventListener('keydown', closeByEscape);
-    popup.querySelectorAll('.form__input').forEach(function callback(input) {
+    popup.querySelectorAll('.form__input').forEach(callback = (input) => {
         input.classList.remove('form__input_invalid');
+    });
+    popup.querySelectorAll('.form__input-error').forEach(callback = (inputError) => {
+        inputError.classList.remove('form__input-error_active');
     });
 }
 
@@ -92,7 +95,7 @@ const closeByEscape = (evt) => {
 };
 
 //создание карточки
-function createCard(element) {
+const createCard = (element) => {
     const elementTemplate = document.querySelector('#add-element').content;
     const createdCard = elementTemplate.querySelector('.add-element').cloneNode(true);
     createdCard.querySelector('.add-element__title').textContent = element.name;
@@ -142,7 +145,7 @@ const editPopupOpen = () => {
 document.querySelector('.profile__edit-button').addEventListener('click', editPopupOpen);
 
 //проверка валидации инпута
-function checkValidity (element) {
+const checkValidity = (element) => {
     const elementForm = element.closest('.form');
     const elementError = elementForm.querySelector(`.${element.id}-error`);
     if ((element.validity.patternMismatch === false)
@@ -165,11 +168,11 @@ function checkValidity (element) {
 //проверка кнопки сохранения
 const inputCallback = (evt) => {
     const inputCallbackForm = evt.target.closest('.form');
-    const inputCallbackFormSaveButton = inputCallbackForm.querySelector('.form__save-handler');
-    if (checkValidity(evt.target)) {
-        inputCallbackFormSaveButton.removeAttribute('disabled');
+    const inputCallbackSaveButton = inputCallbackForm.querySelector('.form__save-handler');
+    if (checkValidity(inputCallbackForm.elements[0]) && checkValidity(inputCallbackForm.elements[1])) {
+        inputCallbackSaveButton.removeAttribute('disabled');
     } else {
-        inputCallbackFormSaveButton.setAttribute('disabled', true);
+        inputCallbackSaveButton.setAttribute('disabled', true);
     }
 }
      
