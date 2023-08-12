@@ -1,0 +1,11 @@
+{
+  "name": "mesto-project",
+  "version": "0.0.1",
+  "description": "Небольшая страница-галерея фотографий с подписями.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arina Morozova",
+  "license": "ISC"
+}
