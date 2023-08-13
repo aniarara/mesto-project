@@ -6,28 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Место</title>
-    <link rel="stylesheet" href="index.css">
+    <!-- <link rel="stylesheet" href="index.css"> -->
 </head>
 
 <body class="page">
     <header class="header">
-        <img class="header__logo" src="images/logo.svg" alt="логотип проекта">
+        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип проекта">
     </header>
     <main class="content">
         <section class="profile">
             <div class="profile__info-column">
-                <img class="profile__avatar" src="images/avatar.jpg" alt="фото профиля, Жак-Ив Кусто в красной шапке">
+                <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="фото профиля, Жак-Ив Кусто в красной шапке">
                 <div class="profile__profile-info">
                     <div class="profile__name-block">
                         <h1 class="profile__name">Жак-Ив Кусто</h1>
                         <button class="profile__edit-button" type="button">
-                            <img class="profile__edit-pic" src="images/Edit-Button.svg" alt="ред."></button>
+                            <img class="profile__edit-pic" src="<%=require('./images/Edit-Button.svg')%>" alt="ред."></button>
                     </div>
                     <p class="profile__caption">Исследователь океана</p>
                 </div>
             </div>
             <button class="profile__add-button" type="button">
-                <img class="profile__add-pic" src="images/plus-button.svg" alt="добавить">
+                <img class="profile__add-pic" src="<%=require('./images/plus-button.svg')%>" alt="добавить">
             </button>
         </section>
         <section class="elements">
@@ -95,7 +95,6 @@
                     type="url" 
                     name="contain"
                     placeholder="Ссылка на картинку"
-                    pattern ="(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?"
                     required>
                     <span class="form__input-error add-card-form-input-contain-error"></span>
                 </label>
@@ -112,7 +111,7 @@
     </div>
     <template id="add-element">
         <article class="element add-element">
-            <img class="element__image add-element__image" src='#' alt='здесь должна быть картинка'>
+            <img class="element__image add-element__image" src='' alt='здесь должна быть картинка'>
             <div class="element__caption add-element__caption">
                 <h2 class="element__title add-element__title"></h2>
                 <button class="element__like add-element__like" type="button"></button>
@@ -120,7 +119,11 @@
             <button class="element__trash-button add-element__trash-button"></button>
         </article>
     </template>
-    <script src="components/index.js"></script>
+    <!-- <script src="index.js"></script>
+    <script type="module" src="./components/validate.js"></script>
+    <script type="module" src="./components/card.js"></script>
+    <script type="module" src="./components/modal.js"></script>
+    <script type="module" src="./components/utils.js"></script> -->
 </body>
 
 </html>
