@@ -64,10 +64,9 @@ profileAddButton.addEventListener('click', openAddButtonPopup);
 addCardForm.addEventListener('submit', addFormSubmitHandler);
 
 enableValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    // inactiveButtonClass: 'popup__button_disabled',
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__save-handler',
     inputErrorClass: 'form__input_invalid',
     errorClass: 'form__input-error_active'
   }); 

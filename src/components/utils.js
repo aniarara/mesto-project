@@ -13,7 +13,6 @@ export const closePopup = popup => {
 }
 
 function closeByEscape(evt) {
-    console.log(evt);
     if (evt.key === 'Escape' || evt.key === 'Esc') {
         closePopup(document.querySelector('.popup_opened'))
     }
