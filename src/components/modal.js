@@ -2,8 +2,8 @@
 
 import { openPopup, closePopup } from './utils.js';
 import { createCard } from './card.js';
-import { makeInputValid, removeInputErrors } from './validate.js';
-import { elementsContainer } from './../index.js';
+import { makeInputValid, removeInputErrors, makeButtonDisabled, makeButtonNotDisabled } from './validate.js';
+import { elementsContainer } from '../pages/index.js';
 
 
 const forms = document.forms;
@@ -33,10 +33,10 @@ const addCardObj = {
 //открытие попапа редактирования профиля
 export const editPopupOpen = () => {
     openPopup(editProfileForm.closest('.popup'));
-    editProfileForm.querySelector('.form__save-handler').removeAttribute('disabled');
+    makeButtonNotDisabled(editProfileForm.querySelector('.form__save-handler'));
     editProfileFormName.value = profileName.textContent;
     editProfileFormContain.value = profileCaption.textContent;
-    makeInputValid(editProfileForm);
+    makeInputValid(editProfileForm, 'form__input_invalid');
     removeInputErrors(editProfileForm);
 };
 
@@ -52,9 +52,9 @@ export const editFormSubmitHandler = (evt) => {
 export const openAddButtonPopup = () => {
     openPopup(addCardPopup);
     addCardForm.reset();
-    makeInputValid(addCardPopup);
+    makeInputValid(addCardPopup, 'form__input_invalid');
     removeInputErrors(addCardPopup);
-    addCardPopup.querySelector('.form__save-handler').setAttribute('disabled', true);
+    makeButtonDisabled(addCardPopup.querySelector('.form__save-handler'));
 }
 
 // сохранение формы add Card Form
