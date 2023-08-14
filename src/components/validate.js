@@ -1,8 +1,8 @@
 //функциональность валидации форм
 
-export const makeInputValid = popup => {
+export const makeInputValid = (popup, invalidClass) => {
     popup.querySelectorAll('.form__input').forEach((input) => {
-    input.classList.remove('form__input_invalid');
+    input.classList.remove(invalidClass);
 });
 }
 
@@ -48,13 +48,7 @@ const checkForm = (
         })
     })
   }
-
-  const checkSaveButton = (formInputs, saveButton) => {
-    if (formInputs.every(checkValidity) === true) {
-        saveButton.removeAttribute('disabled');
-    } else saveButton.setAttribute('disabled', true);
-  }
-
+  
   const checkValidity = (inp) => {
     if (inp.validity.valid === true) {
         return true;
@@ -62,6 +56,16 @@ const checkForm = (
         return false;
     }
   }
+
+  const checkSaveButton = (formInputs, saveButton) => {
+    if (formInputs.every(checkValidity) === true) {
+        makeButtonNotDisabled(saveButton);
+    } else makeButtonDisabled(saveButton);
+  }
+
+  export const makeButtonDisabled = (button) => button.setAttribute('disabled', true);
+
+  export const makeButtonNotDisabled = (button) => button.removeAttribute('disabled');
 
   const cneckError = (form, inp, inputErrorClass, errorClass) => {
     if (checkValidity(inp) === true) {

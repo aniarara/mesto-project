@@ -4,8 +4,8 @@ import './index.css';
 //и другие важные участки оставьте в файле index.js
 
 //импорты
-import { initialCards, createCard } from './components/card.js';
-import { enableValidation } from './components/validate.js';
+import { initialCards, createCard } from '../components/card.js';
+import { enableValidation } from '../components/validate.js';
 import { 
     editProfileForm, 
     addCardForm, 
@@ -13,8 +13,8 @@ import {
     editFormSubmitHandler, 
     openAddButtonPopup, 
     addFormSubmitHandler 
-} from './components/modal.js';
-import { closePopup } from './components/utils.js';
+} from '../components/modal.js';
+import { closePopup } from '../components/utils.js';
     
 //переменные
 const popups = document.querySelectorAll('.popup');
