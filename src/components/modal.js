@@ -1,7 +1,8 @@
 //работу модальных окон — в файл modal.js
 
-import { openPopup, closePopup, makeInputValid, removeInputErrors } from './utils.js';
+import { openPopup, closePopup } from './utils.js';
 import { createCard } from './card.js';
+import { makeInputValid, removeInputErrors } from './validate.js';
 import { elementsContainer } from './../index.js';
 
 
@@ -11,11 +12,13 @@ const forms = document.forms;
 export const editProfileForm = document.forms.editProfile;
 const editProfileFormName = editProfileForm.elements.name;
 const editProfileFormContain = editProfileForm.elements.contain;
+const editProfileFormInputs = editProfileForm.querySelectorAll('.form__input');
 //profile
 const profileName = document.querySelector('.profile__name');
 const profileCaption = document.querySelector('.profile__caption');
 //add card
 const addCardPopup = document.querySelector('.add-card-popup');
+const addCardPopupInputs = Array.from(addCardPopup.querySelectorAll('.form__input'));
 
 //add card form
 export const addCardForm = document.forms.addCardForm;
@@ -33,6 +36,8 @@ export const editPopupOpen = () => {
     editProfileForm.querySelector('.form__save-handler').removeAttribute('disabled');
     editProfileFormName.value = profileName.textContent;
     editProfileFormContain.value = profileCaption.textContent;
+    makeInputValid(editProfileForm);
+    removeInputErrors(editProfileForm);
 };
 
 //сохранение формы редактирования профиля
@@ -41,14 +46,14 @@ export const editFormSubmitHandler = (evt) => {
     profileName.textContent = `${editProfileFormName.value}`;
     profileCaption.textContent = `${editProfileFormContain.value}`;
     closePopup(evt.target.closest('.popup'));
-    makeInputValid(evt.target.closest('.popup'));
-    removeInputErrors(evt.target.closest('.popup'));
 }
 
 //открытие попапа добавления новых карточек
 export const openAddButtonPopup = () => {
     openPopup(addCardPopup);
     addCardForm.reset();
+    makeInputValid(addCardPopup);
+    removeInputErrors(addCardPopup);
     addCardPopup.querySelector('.form__save-handler').setAttribute('disabled', true);
 }
 
@@ -58,8 +63,6 @@ export const addFormSubmitHandler = (evt) => {
     addCardObj.name = addCardFormName.value;
     addCardObj.link = addCardFormContain.value;
     closePopup(addCardPopup);
-    makeInputValid(evt.target.closest('.popup'));
-    removeInputErrors(evt.target.closest('.popup'));
     addCardForm.reset();
     elementsContainer.prepend(createCard(addCardObj));
 }

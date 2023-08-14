@@ -5,7 +5,7 @@ import './index.css';
 
 //импорты
 import { initialCards, createCard } from './components/card.js';
-import { inputCallback } from './components/validate.js';
+import { enableValidation } from './components/validate.js';
 import { 
     editProfileForm, 
     addCardForm, 
@@ -14,15 +14,14 @@ import {
     openAddButtonPopup, 
     addFormSubmitHandler 
 } from './components/modal.js';
-import { closePopup,
-    makeInputValid,
-    removeInputErrors } from './components/utils.js';
+import { closePopup } from './components/utils.js';
     
 //переменные
 const popups = document.querySelectorAll('.popup');
 const profileAddButton = document.querySelector('.profile__add-button');
 export const elementsContainer = document.querySelector('.elements');
 const closeButtons = document.querySelectorAll('.popup__close-button');
+const profileEditButton = document.querySelector('.profile__edit-button')
 
 //добавление карточек при открытии страницы
 window.addEventListener('load', initialCards.forEach((card) => {
@@ -34,8 +33,6 @@ popups.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
         if (popup === evt.target) {
             closePopup(popup);
-            makeInputValid(popup);
-            removeInputErrors(popup);
         }
     })
 });
@@ -45,26 +42,31 @@ closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
     button.addEventListener('click', () => {
         closePopup(popup);
-        makeInputValid(popup);
-        removeInputErrors(popup);
     })
 });
 
 //открытие попапа редактирования профиля
-document.querySelector('.profile__edit-button').addEventListener('click', editPopupOpen);
+profileEditButton.addEventListener('click', editPopupOpen);
 
-//событие ввода символов с проверкой на валидацию edit profile form
-editProfileForm.addEventListener('input', inputCallback);
+// //событие ввода символов с проверкой на валидацию edit profile form
+// editProfileForm.addEventListener('input', inputCallback);
 
 //сохранение формы редактирования профиля
 editProfileForm.addEventListener('submit', editFormSubmitHandler);
 
-
 //попап добавление новых карточек
 profileAddButton.addEventListener('click', openAddButtonPopup);
 
-//событие ввода символов с проверкой на валидацию add Card Form
-addCardForm.addEventListener('input', inputCallback);
+// //событие ввода символов с проверкой на валидацию add Card Form
+// addCardForm.addEventListener('input', inputCallback);
 
 // сохранение формы add Card Form
 addCardForm.addEventListener('submit', addFormSubmitHandler);
+
+enableValidation({
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__save-handler',
+    inputErrorClass: 'form__input_invalid',
+    errorClass: 'form__input-error_active'
+  }); 
