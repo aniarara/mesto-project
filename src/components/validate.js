@@ -1,38 +1,87 @@
 //функциональность валидации форм
 
+export const makeInputValid = popup => {
+    popup.querySelectorAll('.form__input').forEach((input) => {
+    input.classList.remove('form__input_invalid');
+});
+}
+
+export const removeInputErrors = popup => {
+    popup.querySelectorAll('.popup__input_type_error').forEach((inputError) => {
+        inputError.classList.remove('form__input-error_active');
+    });
+}
+
+export function enableValidation({
+    formSelector,
+    inputSelector,
+    submitButtonSelector,
+    // inactiveButtonClass,
+    inputErrorClass,
+    errorClass
+  }) {
+    const allForms = Array.from(document.querySelectorAll(formSelector));
+    allForms.forEach((form) => {
+        checkForm({
+            form,
+            inputSelector,
+            submitButtonSelector,
+            // inactiveButtonClass,
+            inputErrorClass,
+            errorClass
+          })
+    })
+}
+
+const checkForm = ({
+    form,
+    inputSelector,
+    submitButtonSelector,
+    // inactiveButtonClass,
+    inputErrorClass,
+    errorClass
+  }) => {
+    const formInputs = Array.from(form.querySelectorAll(inputSelector));
+    const saveButton = form.querySelector(submitButtonSelector);
+    formInputs.forEach((formInput) => {
+        formInput.addEventListener('input', () => {
+            checkValidity(form, formInput, inputErrorClass);
+            checkSaveButton(formInputs, saveButton)
+        })
+    })
+  }
+  
 //проверка валидации поля ввода
-const checkValidity = (element) => {
-    const elementForm = element.closest('.form');
-    const elementError = elementForm.querySelector(`.${element.id}-error`);
-    if ((element.validity.patternMismatch === false)
-    && (element.validity.tooLong === false)
-    && (element.validity.tooShort === false)
-    && (element.validity.typeMismatch === false)
-    && (element.validity.valueMissing === false)) {
-        element.classList.remove('form__input_invalid');
-        elementError.classList.remove('form__input-error_active');
-        elementError.textContent = '';
+const checkValidity = (form, formInput, inputErrorClass) => {
+    if ((formInput.validity.valid === true)) {
+        hideInputError(form, formInput);
         return true;
-    } else { 
-        element.classList.add('form__input_invalid');
-        elementError.classList.add('form__input-error_active');
-        elementError.textContent = element.validationMessage;
-        if (element.validity.patternMismatch === true) {
-            elementError.textContent = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы";
-            return false;
-        }
+    } else {
+        showInputError(form, formInput, formInput.validationMessage, inputErrorClass, errorClass);
         return false;
     }
 }
 
-//проверка кнопки сохранения
-export const inputCallback = (evt) => {
-    const inputCallbackForm = evt.target.closest('.form');
-    const inputs = inputCallbackForm.querySelectorAll('.form__input');
-    const inputCallbackSaveButton = inputCallbackForm.querySelector('.form__save-handler');
-    if (Array.from(inputs).every(checkValidity) === true) {
-        inputCallbackSaveButton.removeAttribute('disabled', true);
-    } else {
-        inputCallbackSaveButton.setAttribute('disabled', true);
+const showInputError = (form, formInput, errorMessage, inputErrorClass, errorClass) => {
+    const errorSpan = form.querySelector(`.${formInput.id}-error`);
+    formInput.classList.add(inputErrorClass);
+    errorSpan.classList.add(errorClass);
+    errorSpan.textContent = errorMessage;
+
+    if (formInput.validity.patternMismatch === true) {
+        errorSpan.textContent = "Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы";
     }
+}
+
+const hideInputError = (form, formInput) => {
+    const errorSpan = form.querySelector(`.${element.id}-error`);
+    formInput.classList.remove(inputErrorClass);
+    errorSpan.classList.remove(errorClass);
+    errorSpan.textContent = '';
+}
+
+const checkSaveButton = (formInputs, saveButton) => {
+    if (formInputs.every(checkValidity)) {
+        saveButton.removeAttribute('disabled');
+    } else saveButton.setAttribute('disabled', true);
 }
