@@ -2,4 +2,6 @@
     width: 246px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-top: 22px;
 }
