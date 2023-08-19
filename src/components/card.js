@@ -1,40 +1,26 @@
 //функции для работы с карточками проекта Mesto
 
 import { openPopup } from './utils.js';
+import { getData, endPointCards } from './api.js';
 
+
+export const elementsContainer = document.querySelector('.elements');
 //image popup
 const imagePopup = document.querySelector('.image-popup');
 const imagePopupImage = imagePopup.querySelector('.image-popup__image');
 const imagePopupCaption = imagePopup.querySelector('.image-popup__caption');
 
-//cards array
-export const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-
+export function loadCards() {
+    getData(endPointCards)
+        .then(json => {
+            const arr = Array.from(json)
+            arr.forEach(element => {
+                createCard(element)
+                console.log(element)
+            })
+            
+        })
+}
 
 //создание карточки
 export const createCard = (element) => {
@@ -62,5 +48,7 @@ export const createCard = (element) => {
         imagePopupImage.alt = element.name;
         imagePopupCaption.textContent = element.name;
     })
+    elementsContainer.prepend(createdCard);
     return createdCard;
 };
+

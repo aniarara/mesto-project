@@ -1,9 +1,9 @@
 //работу модальных окон — в файл modal.js
 
 import { openPopup, closePopup } from './utils.js';
-import { createCard } from './card.js';
+import { loadCards, elementsContainer } from './card.js';
 import { makeInputValid, removeInputErrors, makeButtonDisabled, makeButtonNotDisabled } from './validate.js';
-import { elementsContainer } from '../pages/index.js';
+import { getData, endPointUser, changeProfile, endPointCards, postNewCard } from './api.js'
 
 
 const forms = document.forms;
@@ -12,10 +12,12 @@ const forms = document.forms;
 export const editProfileForm = document.forms.editProfile;
 const editProfileFormName = editProfileForm.elements.name;
 const editProfileFormContain = editProfileForm.elements.contain;
-const editProfileFormInputs = editProfileForm.querySelectorAll('.form__input');
+const profileAvatar = document.querySelector('.profile__avatar');
+
+// const editProfileFormInputs = editProfileForm.querySelectorAll('.form__input');
 //profile
-const profileName = document.querySelector('.profile__name');
-const profileCaption = document.querySelector('.profile__caption');
+export const profileName = document.querySelector('.profile__name');
+export const profileCaption = document.querySelector('.profile__caption');
 //add card
 const addCardPopup = document.querySelector('.add-card-popup');
 const addCardPopupInputs = Array.from(addCardPopup.querySelectorAll('.form__input'));
@@ -28,6 +30,31 @@ const addCardFormContain = addCardForm.elements.contain;
 const addCardObj = {
     name: '',
     link: ''
+}
+
+function requestProfileName(string) {
+    profileName.textContent = string;
+    editProfileFormName.placeholder = string;
+    profileAvatar.alt = string;
+}
+
+function requestProfileCaption(string) {
+    profileCaption.textContent = (string)
+    editProfileFormContain.placeholder = string;
+}
+
+function requestProfileAvatar(string) {
+    profileAvatar.src = string;
+}
+
+export function setProfileInfo() {
+    getData(endPointUser)
+    .then(json => {
+            requestProfileName(json.name)
+            requestProfileCaption(json.about)
+            requestProfileAvatar(json.avatar)
+            // console.log(json)
+    })
 }
 
 //открытие попапа редактирования профиля
@@ -43,8 +70,8 @@ export const editPopupOpen = () => {
 //сохранение формы редактирования профиля
 export const editFormSubmitHandler = (evt) => {
     evt.preventDefault();
-    profileName.textContent = `${editProfileFormName.value}`;
-    profileCaption.textContent = `${editProfileFormContain.value}`;
+    changeProfile(endPointUser, editProfileFormName.value, editProfileFormContain.value)
+    .finally(() => setProfileInfo());
     closePopup(evt.target.closest('.popup'));
 }
 
@@ -60,9 +87,13 @@ export const openAddButtonPopup = () => {
 // сохранение формы add Card Form
 export const addFormSubmitHandler = (evt) => {
     evt.preventDefault();
-    addCardObj.name = addCardFormName.value;
-    addCardObj.link = addCardFormContain.value;
+    postNewCard(endPointCards, addCardFormName.value, addCardFormContain.value)
+    .finally(() => {
+        elementsContainer.replaceChildren();
+        loadCards()
+    });
+    // addCardObj.name = addCardFormName.value;
+    // addCardObj.link = addCardFormContain.value;
     closePopup(addCardPopup);
     addCardForm.reset();
-    elementsContainer.prepend(createCard(addCardObj));
 }

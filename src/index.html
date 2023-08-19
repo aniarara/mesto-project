@@ -16,14 +16,14 @@
     <main class="content">
         <section class="profile">
             <div class="profile__info-column">
-                <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="фото профиля, Жак-Ив Кусто в красной шапке">
+                <img class="profile__avatar" src="" alt="">
                 <div class="profile__profile-info">
                     <div class="profile__name-block">
-                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <h1 class="profile__name"></h1>
                         <button class="profile__edit-button" type="button">
                             <img class="profile__edit-pic" src="<%=require('./images/Edit-Button.svg')%>" alt="ред."></button>
                     </div>
-                    <p class="profile__caption">Исследователь океана</p>
+                    <p class="profile__caption"></p>
                 </div>
             </div>
             <button class="profile__add-button" type="button">
@@ -46,7 +46,7 @@
                     id="edit-profile-form-input-name"
                     type="text" 
                     name="name" 
-                    placeholder="Жак-Ив Кусто"
+                    placeholder=""
                     minlength="2" 
                     maxlength="40"
                     pattern="[А-Яа-яA-Za-z\s\-]+"
@@ -58,10 +58,10 @@
                     id="edit-profile-form-input-contain"
                     type="text" 
                     name="contain"
-                    placeholder="Исследователь океана"
+                    placeholder=""
                     minlength="2" 
                     maxlength="200"
-                    pattern="[А-Яа-яA-Za-z\s\-]+"
+                    pattern="[А-Яа-яA-Za-z\s\-,]+"
                     required>
                     <span class="form__input-error edit-profile-form-input-contain-error"></span>
                 </label>
