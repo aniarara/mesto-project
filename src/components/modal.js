@@ -47,12 +47,17 @@ function requestProfileAvatar(string) {
     profileAvatar.src = string;
 }
 
+function requestProfileLikes(num) {
+    
+}
+ 
 export function setProfileInfo() {
     getData(endPointUser)
     .then(json => {
             requestProfileName(json.name)
             requestProfileCaption(json.about)
             requestProfileAvatar(json.avatar)
+
             // console.log(json)
     })
 }
