@@ -1,7 +1,8 @@
 //функции для работы с карточками проекта Mesto
 
 import { openPopup } from './utils.js';
-import { getData, endPointCards } from './api.js';
+import { getData, endPointCards, removeCardFromServer } from './api.js';
+import { makeButtonDisabled } from './validate.js'
 
 
 export const elementsContainer = document.querySelector('.elements');
@@ -18,28 +19,47 @@ export function loadCards() {
                 createCard(element)
                 console.log(element)
             })
-            
+
         })
 }
+
+// лайк карточки
+const likingCards = (button) => button.addEventListener('click', (evt) => {
+    evt.target.classList.toggle('element__like_active');
+});
+
+
+//надо как-то обратиться к id, видимо, сделать из него строку
+//удаление карточки
+const removingButton = (button, id, element) => button.addEventListener('click', () => {
+    // const removingElement = button.closest('.element');
+    if  (false) {
+        // (element.owner[_id] === id)
+        // removeCardFromServer(endPointCards, removingElement.id);
+        element.remove();
+    } else {
+        makeButtonDisabled(button);
+    }
+});
+
+
 
 //создание карточки
 export const createCard = (element) => {
     const elementTemplate = document.querySelector('#add-element').content;
     const createdCard = elementTemplate.querySelector('.add-element').cloneNode(true);
-    createdCard.querySelector('.add-element__title').textContent = element.name;
+    const cardLikes = createdCard.querySelector('.element__like');
+    const likeCounter = createdCard.querySelector('.element__like-counter');
+    const trashButton = createdCard.querySelector('.element__trash-button')
     const createdCardImage = createdCard.querySelector('.add-element__image');
+
+    createdCard.querySelector('.add-element__title').textContent = element.name;
     createdCardImage.src = element.link;
     createdCardImage.alt = element.name;
-    // функция лайка
-    createdCard.querySelector('.element__like').addEventListener('click', (evt) => {
-        evt.target.classList.toggle('element__like_active');
-    });
-    //удаление карточки
-    const trashButton = createdCard.querySelector('.element__trash-button')
-    trashButton.addEventListener('click', () => {
-        const removingElement = trashButton.closest('.element');
-        removingElement.remove();
-    });
+    likeCounter.textContent = element.likes.length;
+const myid = "297d7896cf9796988b2fda57";
+    likingCards(cardLikes);
+    if (createdCard[owner][_id] === myid) {}
     //попап картинки
     const addElementImage = createdCardImage;
     addElementImage.addEventListener('click', () => {

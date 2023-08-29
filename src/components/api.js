@@ -45,3 +45,10 @@ export function postNewCard(endPoint, cardName, cardLink) {
         }),
     })
 }
+
+export const removeCardFromServer = (endPoint, cardId) => {
+    return fetch(`${config.baseUrl}/${endPoint}/${cardId}` , {
+        method: 'DELETE',
+        headers: config.headers
+    })
+}
