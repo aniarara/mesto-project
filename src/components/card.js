@@ -2,7 +2,7 @@
 
 import { openPopup } from './utils.js';
 import { getData, endPointCards, removeCardFromServer } from './api.js';
-import { makeButtonDisabled } from './validate.js'
+import { makeButtonDisabled, makeButtonNotDisabled } from './validate.js'
 
 
 export const elementsContainer = document.querySelector('.elements');
@@ -17,7 +17,7 @@ export function loadCards() {
             const arr = Array.from(json)
             arr.forEach(element => {
                 createCard(element)
-                console.log(element)
+                // console.log(element)
             })
 
         })
@@ -29,21 +29,30 @@ const likingCards = (button) => button.addEventListener('click', (evt) => {
 });
 
 
-//надо как-то обратиться к id, видимо, сделать из него строку
-//удаление карточки
-const removingButton = (button, id, element) => button.addEventListener('click', () => {
-    // const removingElement = button.closest('.element');
-    if  (false) {
-        // (element.owner[_id] === id)
-        // removeCardFromServer(endPointCards, removingElement.id);
-        element.remove();
-    } else {
-        makeButtonDisabled(button);
-    }
-});
+// //надо как-то обратиться к id, видимо, сделать из него строку
+// //удаление карточки
+// const removingButton = (button, id, element) => button.addEventListener('click', () => {
+//     // const removingElement = button.closest('.element');
+//     if  (false) {
+//         // (element.owner[_id] === id)
+//         // removeCardFromServer(endPointCards, removingElement.id);
+//         element.remove();
+//     } else {
+//         makeButtonDisabled(button);
+//     }
+// });
 
+//функция удаления карточки по клику
+function removeCardButton (button, elementId) {
+    button.addEventListener('click', (evt) => {
+        const removingElement = button.closest('.element');
+        removingElement.remove();
+        // console.log(removingElement);
+        removeCardFromServer(endPointCards, elementId);
+    })
+}
 
-
+const myid = "297d7896cf9796988b2fda57";
 //создание карточки
 export const createCard = (element) => {
     const elementTemplate = document.querySelector('#add-element').content;
@@ -57,9 +66,12 @@ export const createCard = (element) => {
     createdCardImage.src = element.link;
     createdCardImage.alt = element.name;
     likeCounter.textContent = element.likes.length;
-const myid = "297d7896cf9796988b2fda57";
     likingCards(cardLikes);
-    if (createdCard[owner][_id] === myid) {}
+    
+    if (element.owner['_id'] === myid) {
+        makeButtonNotDisabled(trashButton);
+        removeCardButton(trashButton, element['_id']);
+    }
     //попап картинки
     const addElementImage = createdCardImage;
     addElementImage.addEventListener('click', () => {
