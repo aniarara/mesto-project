@@ -17,7 +17,6 @@ export function loadCards() {
             const arr = Array.from(json)
             arr.forEach(element => {
                 createCard(element)
-                // console.log(element)
             })
 
         })
@@ -28,26 +27,11 @@ const likingCards = (button) => button.addEventListener('click', (evt) => {
     evt.target.classList.toggle('element__like_active');
 });
 
-
-// //надо как-то обратиться к id, видимо, сделать из него строку
-// //удаление карточки
-// const removingButton = (button, id, element) => button.addEventListener('click', () => {
-//     // const removingElement = button.closest('.element');
-//     if  (false) {
-//         // (element.owner[_id] === id)
-//         // removeCardFromServer(endPointCards, removingElement.id);
-//         element.remove();
-//     } else {
-//         makeButtonDisabled(button);
-//     }
-// });
-
 //функция удаления карточки по клику
 function removeCardButton (button, elementId) {
     button.addEventListener('click', (evt) => {
         const removingElement = button.closest('.element');
         removingElement.remove();
-        // console.log(removingElement);
         removeCardFromServer(endPointCards, elementId);
     })
 }
