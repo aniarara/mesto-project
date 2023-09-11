@@ -79,15 +79,15 @@ const toggleLike = (elementLike) => elementLike.classList.toggle('element__like_
 function likeCallback(element, cardId, elementLike, likeCounter) {
     if (Array.from(element.likes).some(checkLike)) {
         deleteLike(cardId)
-        .then(json => {
-            likeCounter.textContent = json.likes.length
-        });
+            .then(json => {
+                likeCounter.textContent = json.likes.length
+            });
         toggleLike(elementLike);
     } else {
         putData(endPointLikes, cardId)
-        .then(json => {
-            likeCounter.textContent = json.likes.length
-        });
+            .then(json => {
+                likeCounter.textContent = json.likes.length
+            });
         toggleLike(elementLike);
     }
 }

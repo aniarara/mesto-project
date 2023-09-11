@@ -27,7 +27,7 @@ export function getData(endPoint) {
         })
         .catch((err) => {
             console.log(err); // выводим ошибку в консоль
-          }); 
+        });
 }
 
 export function changeProfile(endPoint, userName, userContain) {
@@ -74,26 +74,26 @@ export function putData(endPoint, cardId) {
         method: 'PUT',
         headers: config.headers
     })
-    .then(res => {
-        if (res.ok) {
-            return res.json()
-        } else {
-            return Promise.reject(res.status);
-        }
-    })
+        .then(res => {
+            if (res.ok) {
+                return res.json()
+            } else {
+                return Promise.reject(res.status);
+            }
+        })
 }
 //надо лайкам сделать функцию как setProfileInfo чтобы обновляла лайки при постановке
 export function deleteLike(cardId) {
-    return fetch (`${config.baseUrl}/${endPointLikes}/${cardId}`, {
+    return fetch(`${config.baseUrl}/${endPointLikes}/${cardId}`, {
         method: 'DELETE',
         headers: config.headers
     })
-    .then(res => {
-        if (res.ok) {
-            return res.json()
-        } else {
-            return Promise.reject(res.status);
-        }
-    })
+        .then(res => {
+            if (res.ok) {
+                return res.json()
+            } else {
+                return Promise.reject(res.status);
+            }
+        })
 }
 

@@ -19,7 +19,7 @@ export const profileName = document.querySelector('.profile__name');
 export const profileCaption = document.querySelector('.profile__caption');
 //add card
 const addCardPopup = document.querySelector('.add-card-popup');
-const addCardSaver =  addCardPopup.querySelector('.form__save-handler');
+const addCardSaver = addCardPopup.querySelector('.form__save-handler');
 // const addCardPopupInputs = Array.from(addCardPopup.querySelectorAll('.form__input'));
 
 //add card form
@@ -51,11 +51,11 @@ function requestProfileAvatar(string) {
 
 export function setProfileInfo() {
     getData(endPointUser)
-    .then(json => {
+        .then(json => {
             requestProfileName(json.name)
             requestProfileCaption(json.about)
             requestProfileAvatar(json.avatar)
-    })
+        })
 }
 
 //открытие попапа редактирования профиля
@@ -73,10 +73,10 @@ export const editFormSubmitHandler = (evt) => {
     evt.preventDefault();
     checkLoading(true, editProfileSaver);
     changeProfile(endPointUser, editProfileFormName.value, editProfileFormContain.value)
-    .finally(() => {
-        checkLoading(false, editProfileSaver);
-        setProfileInfo()
-    });
+        .finally(() => {
+            checkLoading(false, editProfileSaver);
+            setProfileInfo()
+        });
     closePopup(evt.target.closest('.popup'));
 }
 
@@ -93,11 +93,11 @@ export const addFormSubmitHandler = (evt) => {
     evt.preventDefault();
     checkLoading(true, addCardSaver);
     postNewCard(endPointCards, addCardFormName.value, addCardFormContain.value)
-    .finally(() => {
-        elementsContainer.replaceChildren();
-        checkLoading(false, addCardSaver);
-        loadCards()
-    });
+        .finally(() => {
+            elementsContainer.replaceChildren();
+            checkLoading(false, addCardSaver);
+            loadCards()
+        });
     // addCardObj.name = addCardFormName.value;
     // addCardObj.link = addCardFormContain.value;
     closePopup(addCardPopup);
@@ -108,10 +108,10 @@ export const avatarPopupHandler = (evt) => {
     evt.preventDefault();
     checkLoading(true, avatarSaver);
     changeProfileAvatar(avatarFormLink.value)
-    .finally(() => {
-        checkLoading(false, avatarSaver);
-        setProfileInfo()
-    });
+        .finally(() => {
+            checkLoading(false, avatarSaver);
+            setProfileInfo()
+        });
     closePopup(avatarPopup);
     avatarForm.reset();
 }
