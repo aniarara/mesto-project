@@ -4,6 +4,9 @@
 export const openPopup = popup => {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', closeByEscape);
+    if (popup.querySelector('.form') !== null) {
+        popup.querySelector('.form').reset();
+    }
 }
 
 //закрытие попапа

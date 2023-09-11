@@ -13,31 +13,21 @@ import {
     profileCaption,
     addCardForm,
     editPopupOpen,
-    editProfileFormName,
-    editProfileFormContain,
+    avatarPopupHandler,
+    avatarForm,
     profileAvatar,
     editFormSubmitHandler,
     openAddButtonPopup,
     addFormSubmitHandler,
     setProfileInfo
 } from '../components/modal.js';
-import { closePopup } from '../components/utils.js';
+import { closePopup, openPopup } from '../components/utils.js';
 
 //переменные
 const popups = document.querySelectorAll('.popup');
 const profileAddButton = document.querySelector('.profile__add-button');
 const closeButtons = document.querySelectorAll('.popup__close-button');
-const profileEditButton = document.querySelector('.profile__edit-button')
-
-//логика
-
-//при открытии страницы загрузка профиля, загрузка карточек GET done
-//POST профиля при отправке формы редактирования
-//GET снова setProfileInfo()в конце сабмита  формы профиля
-
-//POST при добавлении карточки
-//GETв конце сохранения для обновления страницы
-
+const profileEditButton = document.querySelector('.profile__edit-button');
 
 //добавление карточек при открытии страницы
 window.addEventListener('load', () => {
@@ -68,10 +58,10 @@ profileEditButton.addEventListener('click', editPopupOpen);
 //сохранение формы редактирования профиля
 editProfileForm.addEventListener('submit', editFormSubmitHandler);
 
-//попап добавление новых карточек
+//открытие попап добавление новых карточек
 profileAddButton.addEventListener('click', openAddButtonPopup);
 
-// сохранение формы add Card Form
+// сохранение формы добавление новых карточек
 addCardForm.addEventListener('submit', addFormSubmitHandler);
 
 enableValidation({
@@ -82,3 +72,6 @@ enableValidation({
     errorClass: 'form__input-error_active'
 });
 
+profileAvatar.addEventListener('click', () => openPopup(avatarForm.closest('.popup')));
+
+avatarForm.addEventListener('submit', avatarPopupHandler)

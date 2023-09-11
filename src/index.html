@@ -15,13 +15,17 @@
     </header>
     <main class="content">
         <section class="profile">
+
             <div class="profile__info-column">
-                <img class="profile__avatar" src="" alt="">
+                <div class="profile__avatar-overlay">
+                    <img class="profile__avatar" src="" alt="">
+                </div>
                 <div class="profile__profile-info">
                     <div class="profile__name-block">
                         <h1 class="profile__name"></h1>
                         <button class="profile__edit-button" type="button">
-                            <img class="profile__edit-pic" src="<%=require('./images/Edit-Button.svg')%>" alt="ред."></button>
+                            <img class="profile__edit-pic" src="<%=require('./images/Edit-Button.svg')%>"
+                                alt="ред."></button>
                     </div>
                     <p class="profile__caption"></p>
                 </div>
@@ -42,27 +46,14 @@
             <h2 class="popup__title">Редактировать профиль</h2>
             <form class="form edit-profile-form" action="#" method="post" name="editProfile" novalidate>
                 <label class="form__field">
-                    <input class="form__input edit-profile-form__input" 
-                    id="edit-profile-form-input-name"
-                    type="text" 
-                    name="name" 
-                    placeholder=""
-                    minlength="2" 
-                    maxlength="40"
-                    pattern="[А-Яа-яA-Za-z\s\-]+"
-                    required>
+                    <input class="form__input edit-profile-form__input" id="edit-profile-form-input-name" type="text"
+                        name="name" placeholder="" minlength="2" maxlength="40" pattern="[А-Яа-яA-Za-z\s\-]+" required>
                     <span class="form__input-error edit-profile-form-input-name-error"></span>
                 </label>
                 <label class="form__field">
-                    <input class="form__input edit-profile-form__input" 
-                    id="edit-profile-form-input-contain"
-                    type="text" 
-                    name="contain"
-                    placeholder=""
-                    minlength="2" 
-                    maxlength="200"
-                    pattern="[А-Яа-яA-Za-z\s\-,]+"
-                    required>
+                    <input class="form__input edit-profile-form__input" id="edit-profile-form-input-contain" type="text"
+                        name="contain" placeholder="" minlength="2" maxlength="200" pattern="[А-Яа-яA-Za-z\s\-,]+"
+                        required>
                     <span class="form__input-error edit-profile-form-input-contain-error"></span>
                 </label>
                 <button class="form__save-handler" type="submit" disabled>Сохранить</button>
@@ -75,27 +66,14 @@
             <h2 class="popup__title">Новое место</h2>
             <form class="form add-card-form" action="#" method="post" name="addCardForm" novalidate>
                 <label class="form__field">
-                    <input 
-                    id="add-card-form-input-name"
-                    class="form__input add-card-form__input"
-                    type="text" 
-                    name="name"
-                    placeholder="Название"
-                    minlength="2" 
-                    maxlength="30"
-                    pattern ="[А-Яа-яA-Za-z\s\-]+"
-                    required>
-                    <span 
-                    class="form__input-error add-card-form-input-name-error"></span>
+                    <input id="add-card-form-input-name" class="form__input add-card-form__input" type="text"
+                        name="name" placeholder="Название" minlength="2" maxlength="30" pattern="[А-Яа-яA-Za-z\s\-]+"
+                        required>
+                    <span class="form__input-error add-card-form-input-name-error"></span>
                 </label>
                 <label class="form__field">
-                    <input 
-                    id="add-card-form-input-contain"
-                    class="form__input add-card-form__input" 
-                    type="url" 
-                    name="contain"
-                    placeholder="Ссылка на картинку"
-                    required>
+                    <input id="add-card-form-input-contain" class="form__input add-card-form__input" type="url"
+                        name="contain" placeholder="Ссылка на картинку" required>
                     <span class="form__input-error add-card-form-input-contain-error"></span>
                 </label>
                 <button class="form__save-handler" type="submit" disabled>Сохранить</button>
@@ -107,6 +85,20 @@
             <button class="popup__close-button image-popup__close-button" type="button"></button>
             <img class="image-popup__image" src="" alt='здесь должна быть картинка'>
             <figcaption class="image-popup__caption"></figcaption>
+        </div>
+    </div>
+    <div class="popup avatar-popup">
+        <div class="popup__container">
+            <button class="popup__close-button avatar-popup__close-button" type="button"></button>
+            <h2 class="popup__title">Обновить аватар</h2>
+            <form class="form avatar-form" action="#" method="post" name="avatarForm" novalidate>
+                <label class="form__field">
+                    <input id="avatar-form-input-contain" class="form__input avatar-form__input" type="url"
+                        name="contain" placeholder="Ссылка на картинку" required>
+                    <span class="form__input-error avatar-form-input-contain-error"></span>
+                </label>
+                <button class="form__save-handler" type="submit" disabled>Сохранить</button>
+            </form>
         </div>
     </div>
     <template id="add-element">
