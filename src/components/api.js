@@ -11,6 +11,14 @@ const config = {
     }
 }
 
+const checkRes = (res) => {
+    if (res.ok) {
+        return res.json()
+    } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+}
+
 export const myid = "297d7896cf9796988b2fda57";
 
 export function getData(endPoint) {
@@ -18,13 +26,7 @@ export function getData(endPoint) {
         method: 'GET',
         headers: config.headers
     })
-        .then(res => {
-            if (res.ok) {
-                return res.json()
-            } else {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-        })
+        .then(checkRes(res))
         .catch((err) => {
             console.log(err); // выводим ошибку в консоль
         });
@@ -74,13 +76,7 @@ export function putData(endPoint, cardId) {
         method: 'PUT',
         headers: config.headers
     })
-        .then(res => {
-            if (res.ok) {
-                return res.json()
-            } else {
-                return Promise.reject(res.status);
-            }
-        })
+        .then(checkRes(res))
 }
 //надо лайкам сделать функцию как setProfileInfo чтобы обновляла лайки при постановке
 export function deleteLike(cardId) {
@@ -88,12 +84,6 @@ export function deleteLike(cardId) {
         method: 'DELETE',
         headers: config.headers
     })
-        .then(res => {
-            if (res.ok) {
-                return res.json()
-            } else {
-                return Promise.reject(res.status);
-            }
-        })
+        .then(checkRes(res))
 }
 
