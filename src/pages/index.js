@@ -5,12 +5,10 @@ import './index.css';
 
 //импорты
 import * as api from '../components/api.js';
-import { initialCards, loadCards } from '../components/card.js';
+import { loadCards } from '../components/card.js';
 import { enableValidation } from '../components/validate.js';
 import {
     editProfileForm,
-    profileName,
-    profileCaption,
     addCardForm,
     editPopupOpen,
     avatarPopupHandler,

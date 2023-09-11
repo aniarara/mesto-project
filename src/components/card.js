@@ -52,7 +52,6 @@ export const createCard = (element) => {
     likeButton.addEventListener('click', () => {
         likeCallback(element, element['_id'], likeButton, likeCounter)
     });
-    console.log(element);
 
     //проверяем и вешаем кнопки удаления
     if (element.owner['_id'] === myid) {

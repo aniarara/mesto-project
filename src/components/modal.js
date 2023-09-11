@@ -6,8 +6,6 @@ import { makeInputValid, removeInputErrors, makeButtonDisabled, makeButtonNotDis
 import { getData, endPointUser, changeProfile, endPointCards, postNewCard, changeProfileAvatar } from './api.js'
 
 
-// const forms = document.forms;
-
 // edit profile form
 export const editProfileForm = document.forms.editProfile;
 const editProfileFormName = editProfileForm.elements.name;
@@ -20,7 +18,6 @@ export const profileCaption = document.querySelector('.profile__caption');
 //add card
 const addCardPopup = document.querySelector('.add-card-popup');
 const addCardSaver = addCardPopup.querySelector('.form__save-handler');
-// const addCardPopupInputs = Array.from(addCardPopup.querySelectorAll('.form__input'));
 
 //add card form
 export const addCardForm = document.forms.addCardForm;
@@ -98,8 +95,6 @@ export const addFormSubmitHandler = (evt) => {
             checkLoading(false, addCardSaver);
             loadCards()
         });
-    // addCardObj.name = addCardFormName.value;
-    // addCardObj.link = addCardFormContain.value;
     closePopup(addCardPopup);
     addCardForm.reset();
 }
