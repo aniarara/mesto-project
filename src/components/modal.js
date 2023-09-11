@@ -3,34 +3,33 @@
 import { openPopup, closePopup } from './utils.js';
 import { loadCards, elementsContainer } from './card.js';
 import { makeInputValid, removeInputErrors, makeButtonDisabled, makeButtonNotDisabled } from './validate.js';
-import { getData, endPointUser, changeProfile, endPointCards, postNewCard } from './api.js'
+import { getData, endPointUser, changeProfile, endPointCards, postNewCard, changeProfileAvatar } from './api.js'
 
-
-const forms = document.forms;
 
 // edit profile form
 export const editProfileForm = document.forms.editProfile;
 const editProfileFormName = editProfileForm.elements.name;
 const editProfileFormContain = editProfileForm.elements.contain;
-const profileAvatar = document.querySelector('.profile__avatar');
+const editProfileSaver = editProfileForm.querySelector('.form__save-handler');
 
-// const editProfileFormInputs = editProfileForm.querySelectorAll('.form__input');
 //profile
 export const profileName = document.querySelector('.profile__name');
 export const profileCaption = document.querySelector('.profile__caption');
 //add card
 const addCardPopup = document.querySelector('.add-card-popup');
-const addCardPopupInputs = Array.from(addCardPopup.querySelectorAll('.form__input'));
+const addCardSaver = addCardPopup.querySelector('.form__save-handler');
 
 //add card form
 export const addCardForm = document.forms.addCardForm;
 const addCardFormName = addCardForm.elements.name;
 const addCardFormContain = addCardForm.elements.contain;
 
-const addCardObj = {
-    name: '',
-    link: ''
-}
+//avatar form
+export const profileAvatar = document.querySelector('.profile__avatar');
+const avatarPopup = document.querySelector('.avatar-popup');
+export const avatarForm = document.forms.avatarForm;
+const avatarFormLink = avatarForm.contain;
+const avatarSaver = avatarPopup.querySelector('.form__save-handler');
 
 function requestProfileName(string) {
     profileName.textContent = string;
@@ -49,18 +48,17 @@ function requestProfileAvatar(string) {
 
 export function setProfileInfo() {
     getData(endPointUser)
-    .then(json => {
+        .then(json => {
             requestProfileName(json.name)
             requestProfileCaption(json.about)
             requestProfileAvatar(json.avatar)
-            // console.log(json)
-    })
+        })
 }
 
 //открытие попапа редактирования профиля
 export const editPopupOpen = () => {
     openPopup(editProfileForm.closest('.popup'));
-    makeButtonNotDisabled(editProfileForm.querySelector('.form__save-handler'));
+    makeButtonNotDisabled(editProfileSaver);
     editProfileFormName.value = profileName.textContent;
     editProfileFormContain.value = profileCaption.textContent;
     makeInputValid(editProfileForm, 'form__input_invalid');
@@ -70,30 +68,52 @@ export const editPopupOpen = () => {
 //сохранение формы редактирования профиля
 export const editFormSubmitHandler = (evt) => {
     evt.preventDefault();
+    checkLoading(true, editProfileSaver);
     changeProfile(endPointUser, editProfileFormName.value, editProfileFormContain.value)
-    .finally(() => setProfileInfo());
+        .finally(() => {
+            checkLoading(false, editProfileSaver);
+            setProfileInfo()
+        });
     closePopup(evt.target.closest('.popup'));
 }
 
 //открытие попапа добавления новых карточек
 export const openAddButtonPopup = () => {
     openPopup(addCardPopup);
-    addCardForm.reset();
     makeInputValid(addCardPopup, 'form__input_invalid');
     removeInputErrors(addCardPopup);
-    makeButtonDisabled(addCardPopup.querySelector('.form__save-handler'));
+    makeButtonDisabled(addCardSaver);
 }
 
 // сохранение формы add Card Form
 export const addFormSubmitHandler = (evt) => {
     evt.preventDefault();
+    checkLoading(true, addCardSaver);
     postNewCard(endPointCards, addCardFormName.value, addCardFormContain.value)
-    .finally(() => {
-        elementsContainer.replaceChildren();
-        loadCards()
-    });
-    // addCardObj.name = addCardFormName.value;
-    // addCardObj.link = addCardFormContain.value;
+        .finally(() => {
+            elementsContainer.replaceChildren();
+            checkLoading(false, addCardSaver);
+            loadCards()
+        });
     closePopup(addCardPopup);
     addCardForm.reset();
+}
+
+export const avatarPopupHandler = (evt) => {
+    evt.preventDefault();
+    checkLoading(true, avatarSaver);
+    changeProfileAvatar(avatarFormLink.value)
+        .finally(() => {
+            checkLoading(false, avatarSaver);
+            setProfileInfo()
+        });
+    closePopup(avatarPopup);
+    avatarForm.reset();
+}
+
+//проверка загрузки
+const checkLoading = (check, button) => {
+    if (check) {
+        button.textContent = 'Сохранение...';
+    } else button.textContent = 'Сохранить';
 }

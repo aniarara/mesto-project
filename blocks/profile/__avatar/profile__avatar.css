@@ -5,3 +5,14 @@
     object-fit: cover;
     object-position: center;
 }
+
+.profile__avatar:hover {
+    opacity: .2;
+}
+
+.profile__avatar-overlay:hover {
+    background-image: url(../../../src/images/Edit-Button.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 26px;
+}

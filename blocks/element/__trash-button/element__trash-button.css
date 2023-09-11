@@ -16,3 +16,7 @@
 .element__trash-button:hover {
     opacity: .5;
 }
+
+.element__trash-button:disabled {
+    visibility: hidden;
+}
