@@ -16,6 +16,7 @@ const editProfileSaver = editProfileForm.querySelector('.form__save-handler');
 //profile
 export const profileName = document.querySelector('.profile__name');
 export const profileCaption = document.querySelector('.profile__caption');
+export const profileAvatar = document.querySelector('.profile__avatar');
 //add card
 const addCardPopup = document.querySelector('.add-card-popup');
 const addCardSaver = addCardPopup.querySelector('.form__save-handler');
@@ -26,7 +27,7 @@ const addCardFormName = addCardForm.elements.name;
 const addCardFormContain = addCardForm.elements.contain;
 
 //avatar form
-export const profileAvatar = document.querySelector('.profile__avatar');
+
 const avatarPopup = document.querySelector('.avatar-popup');
 export const avatarForm = document.forms.avatarForm;
 const avatarFormLink = avatarForm.contain;
@@ -63,11 +64,11 @@ export const editFormSubmitHandler = (evt) => {
     evt.preventDefault();
     checkLoading(true, editProfileSaver);
     changeProfile(endPointUser, editProfileFormName.value, editProfileFormContain.value)
-    .then(() => {
-        profileName.textContent = editProfileFormName.value,
-        profileCaption.textContent = editProfileFormContain.value,
-        closePopup(evt.target.closest('.popup'));
-    })
+        .then(() => {
+            profileName.textContent = editProfileFormName.value,
+                profileCaption.textContent = editProfileFormContain.value,
+                closePopup(evt.target.closest('.popup'));
+        })
         .catch(catchError)
         .finally(() => {
             checkLoading(false, editProfileSaver);
@@ -85,13 +86,14 @@ export const openAddButtonPopup = () => {
 export const addFormSubmitHandler = (evt) => {
     evt.preventDefault();
     checkLoading(true, addCardSaver);
-    postNewCard({name: addCardFormName.value,
-            link: addCardFormContain.value
-        })
-    .then(json => {
-        createdCardToDOM(json),
-        closePopup(addCardPopup)
+    postNewCard({
+        name: addCardFormName.value,
+        link: addCardFormContain.value
     })
+        .then(json => {
+            createdCardToDOM(json),
+                closePopup(addCardPopup)
+        })
         .catch(catchError)
         .finally(() => {
             checkLoading(false, addCardSaver);
@@ -117,13 +119,14 @@ export const avatarPopupHandler = (evt) => {
     evt.preventDefault();
     checkLoading(true, avatarSaver);
     changeProfileAvatar(avatarFormLink.value)
-    .then(closePopup(avatarPopup))
+        .then(
+            closePopup(avatarPopup),
+            profileAvatar.src = avatarFormLink.value
+            )
         .catch(catchError)
         .finally(() => {
-            checkLoading(false, avatarSaver);
-            setProfileInfo()
+            checkLoading(false, avatarSaver)
         });
-    avatarForm.reset();
 }
 
 export function setProfileInfo() {
