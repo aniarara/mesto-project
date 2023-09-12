@@ -1,3 +1,5 @@
+import { checkResponse } from "./utils";
+
 export const endPointUser = `users/me`;
 export const endPointCards = `cards`;
 export const endPointLikes = `cards/likes`;
@@ -11,23 +13,12 @@ const config = {
     }
 }
 
-export const myid = "297d7896cf9796988b2fda57";
-
 export function getData(endPoint) {
     return fetch(`${config.baseUrl}/${endPoint}`, {
         method: 'GET',
         headers: config.headers
     })
-        .then(res => {
-            if (res.ok) {
-                return res.json()
-            } else {
-                return Promise.reject(`Ошибка: ${res.status}`);
-            }
-        })
-        .catch((err) => {
-            console.log(err); // выводим ошибку в консоль
-        });
+        .then(checkResponse)
 }
 
 export function changeProfile(endPoint, userName, userContain) {
@@ -37,8 +28,9 @@ export function changeProfile(endPoint, userName, userContain) {
         body: JSON.stringify({
             name: userName,
             about: userContain
-        }),
+        })
     })
+    .then(checkResponse)
 }
 
 export function changeProfileAvatar(avatarLink) {
@@ -49,17 +41,26 @@ export function changeProfileAvatar(avatarLink) {
             avatar: avatarLink
         }),
     })
+    .then(checkResponse)
 }
 
-export function postNewCard(endPoint, cardName, cardLink) {
-    return fetch(`${config.baseUrl}/${endPoint}`, {
+export function postNewCard(element) {
+    return fetch(`${config.baseUrl}/${endPointCards}`, {
         method: 'POST',
         headers: config.headers,
-        body: JSON.stringify({
-            name: cardName,
-            link: cardLink
-        }),
+        body: JSON.stringify(element)
+        // body: JSON.stringify({
+        //     name: cardName,
+        //     link: cardLink
+        // })
     })
+    .then((res) => {
+        if (res.ok) {
+        return res.json()
+    } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+})
 }
 
 export const deleteCard = (cardId) => {
@@ -67,6 +68,7 @@ export const deleteCard = (cardId) => {
         method: 'DELETE',
         headers: config.headers
     })
+    .then(checkResponse)
 }
 
 export function putData(endPoint, cardId) {
@@ -74,26 +76,14 @@ export function putData(endPoint, cardId) {
         method: 'PUT',
         headers: config.headers
     })
-        .then(res => {
-            if (res.ok) {
-                return res.json()
-            } else {
-                return Promise.reject(res.status);
-            }
-        })
+        .then(checkResponse)
 }
-//надо лайкам сделать функцию как setProfileInfo чтобы обновляла лайки при постановке
+
 export function deleteLike(cardId) {
     return fetch(`${config.baseUrl}/${endPointLikes}/${cardId}`, {
         method: 'DELETE',
         headers: config.headers
     })
-        .then(res => {
-            if (res.ok) {
-                return res.json()
-            } else {
-                return Promise.reject(res.status);
-            }
-        })
+        .then(checkResponse)
 }
 

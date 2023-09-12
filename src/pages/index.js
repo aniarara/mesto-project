@@ -5,7 +5,7 @@ import './index.css';
 
 //импорты
 import * as api from '../components/api.js';
-import { loadCards } from '../components/card.js';
+import { createdCardToDOM } from '../components/card.js';
 import { enableValidation } from '../components/validate.js';
 import {
     editProfileForm,
@@ -17,11 +17,15 @@ import {
     editFormSubmitHandler,
     openAddButtonPopup,
     addFormSubmitHandler,
-    setProfileInfo
+    openAvatarPopup,
+    requestProfileName,
+    requestProfileCaption,
+    requestProfileAvatar
 } from '../components/modal.js';
-import { closePopup, openPopup } from '../components/utils.js';
+import { closePopup, catchError } from '../components/utils.js';
 
 //переменные
+export let userId;
 const popups = document.querySelectorAll('.popup');
 const profileAddButton = document.querySelector('.profile__add-button');
 const closeButtons = document.querySelectorAll('.popup__close-button');
@@ -29,8 +33,15 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 
 //добавление карточек при открытии страницы
 window.addEventListener('load', () => {
-    setProfileInfo();
-    loadCards();
+    Promise.all([api.getData(api.endPointUser), api.getData(api.endPointCards)])
+  .then(([userData, cards]) => {
+    userId = userData._id,
+    requestProfileName(userData.name),
+    requestProfileCaption(userData.about),
+    requestProfileAvatar(userData.avatar),
+    Array.from(cards).forEach(card => createdCardToDOM(card))
+  })
+  .catch(catchError());
 });
 
 //closing popups by overlay
@@ -70,6 +81,6 @@ enableValidation({
     errorClass: 'form__input-error_active'
 });
 
-profileAvatar.addEventListener('click', () => openPopup(avatarForm.closest('.popup')));
+profileAvatar.addEventListener('click', openAvatarPopup);
 
 avatarForm.addEventListener('submit', avatarPopupHandler)

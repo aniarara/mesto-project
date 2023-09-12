@@ -4,9 +4,6 @@
 export const openPopup = popup => {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', closeByEscape);
-    if (popup.querySelector('.form') !== null) {
-        popup.querySelector('.form').reset();
-    }
 }
 
 //закрытие попапа
@@ -19,4 +16,16 @@ function closeByEscape(evt) {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
         closePopup(document.querySelector('.popup_opened'))
     }
+}
+
+export const checkResponse = (res) => {
+    if (res.ok) {
+        return res.json()
+    } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+}
+
+export const catchError = (err) => {
+    console.log(err);
 }
