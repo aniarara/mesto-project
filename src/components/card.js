@@ -27,9 +27,8 @@ function removeCardButton(button, elementId) {
     button.addEventListener('click', (evt) => {
         const removingElement = button.closest('.element');
         deleteCard(elementId)
-            // .then()
+            .then(removingElement.remove())
             .catch(catchError)
-            .finally(removingElement.remove());
     })
 }
 
