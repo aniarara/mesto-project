@@ -1,12 +1,13 @@
 //работу модальных окон — в файл modal.js
 
-import { openPopup, closePopup } from './utils.js';
-import { loadCards, elementsContainer } from './card.js';
-import { makeInputValid, removeInputErrors, makeButtonDisabled, makeButtonNotDisabled } from './validate.js';
+import { openPopup, closePopup, catchError } from './utils.js';
+import { loadCards, elementsContainer, createdCardToDOM, createCard } from './card.js';
+import { makeInputValid, removeInputErrors, makeButtonDisabled, makeButtonNotDisabled, clearPopup } from './validate.js';
 import { getData, endPointUser, changeProfile, endPointCards, postNewCard, changeProfileAvatar } from './api.js'
 
 
 // edit profile form
+const editProfilePopup = document.querySelector('.edit-profile-popup');
 export const editProfileForm = document.forms.editProfile;
 const editProfileFormName = editProfileForm.elements.name;
 const editProfileFormContain = editProfileForm.elements.contain;
@@ -15,6 +16,7 @@ const editProfileSaver = editProfileForm.querySelector('.form__save-handler');
 //profile
 export const profileName = document.querySelector('.profile__name');
 export const profileCaption = document.querySelector('.profile__caption');
+export const profileAvatar = document.querySelector('.profile__avatar');
 //add card
 const addCardPopup = document.querySelector('.add-card-popup');
 const addCardSaver = addCardPopup.querySelector('.form__save-handler');
@@ -25,25 +27,106 @@ const addCardFormName = addCardForm.elements.name;
 const addCardFormContain = addCardForm.elements.contain;
 
 //avatar form
-export const profileAvatar = document.querySelector('.profile__avatar');
+
 const avatarPopup = document.querySelector('.avatar-popup');
 export const avatarForm = document.forms.avatarForm;
 const avatarFormLink = avatarForm.contain;
 const avatarSaver = avatarPopup.querySelector('.form__save-handler');
 
-function requestProfileName(string) {
+export function requestProfileName(string) {
     profileName.textContent = string;
     editProfileFormName.placeholder = string;
     profileAvatar.alt = string;
 }
 
-function requestProfileCaption(string) {
+export function requestProfileCaption(string) {
     profileCaption.textContent = (string)
     editProfileFormContain.placeholder = string;
 }
 
-function requestProfileAvatar(string) {
-    profileAvatar.src = string;
+export function requestProfileAvatar(link) {
+    profileAvatar.src = link;
+}
+
+
+
+//открытие попапа редактирования профиля
+export const editPopupOpen = () => {
+    openPopup(editProfilePopup);
+    clearPopup(editProfilePopup);
+    makeButtonNotDisabled(editProfileSaver);
+    editProfileFormName.value = profileName.textContent;
+    editProfileFormContain.value = profileCaption.textContent;
+};
+
+//сохранение формы редактирования профиля
+export const editFormSubmitHandler = (evt) => {
+    evt.preventDefault();
+    checkLoading(true, editProfileSaver);
+    changeProfile(endPointUser, editProfileFormName.value, editProfileFormContain.value)
+        .then(() => {
+            profileName.textContent = editProfileFormName.value,
+                profileCaption.textContent = editProfileFormContain.value,
+                closePopup(evt.target.closest('.popup'));
+        })
+        .catch(catchError)
+        .finally(() => {
+            checkLoading(false, editProfileSaver);
+        });
+}
+
+//открытие попапа добавления новых карточек
+export const openAddButtonPopup = () => {
+    openPopup(addCardPopup);
+    clearPopup(addCardPopup);
+    makeButtonDisabled(addCardSaver);
+}
+
+// сохранение формы add Card Form
+export const addFormSubmitHandler = (evt) => {
+    evt.preventDefault();
+    checkLoading(true, addCardSaver);
+    postNewCard({
+        name: addCardFormName.value,
+        link: addCardFormContain.value
+    })
+        .then(json => {
+            createdCardToDOM(json),
+                closePopup(addCardPopup)
+        })
+        .catch(catchError)
+        .finally(() => {
+            checkLoading(false, addCardSaver);
+        })
+}
+
+//проверка загрузки
+const checkLoading = (check, button) => {
+    if (check) {
+        button.textContent = 'Сохранение...';
+    } else button.textContent = 'Сохранить';
+}
+
+//открытие формы изменения аватара
+export const openAvatarPopup = () => {
+    openPopup(avatarPopup);
+    clearPopup(avatarPopup);
+    makeButtonDisabled(avatarSaver);
+}
+
+//сохранение формы изменения аватара
+export const avatarPopupHandler = (evt) => {
+    evt.preventDefault();
+    checkLoading(true, avatarSaver);
+    changeProfileAvatar(avatarFormLink.value)
+        .then(
+            closePopup(avatarPopup),
+            profileAvatar.src = avatarFormLink.value
+            )
+        .catch(catchError)
+        .finally(() => {
+            checkLoading(false, avatarSaver)
+        });
 }
 
 export function setProfileInfo() {
@@ -53,67 +136,5 @@ export function setProfileInfo() {
             requestProfileCaption(json.about)
             requestProfileAvatar(json.avatar)
         })
-}
-
-//открытие попапа редактирования профиля
-export const editPopupOpen = () => {
-    openPopup(editProfileForm.closest('.popup'));
-    makeButtonNotDisabled(editProfileSaver);
-    editProfileFormName.value = profileName.textContent;
-    editProfileFormContain.value = profileCaption.textContent;
-    makeInputValid(editProfileForm, 'form__input_invalid');
-    removeInputErrors(editProfileForm);
-};
-
-//сохранение формы редактирования профиля
-export const editFormSubmitHandler = (evt) => {
-    evt.preventDefault();
-    checkLoading(true, editProfileSaver);
-    changeProfile(endPointUser, editProfileFormName.value, editProfileFormContain.value)
-        .finally(() => {
-            checkLoading(false, editProfileSaver);
-            setProfileInfo()
-        });
-    closePopup(evt.target.closest('.popup'));
-}
-
-//открытие попапа добавления новых карточек
-export const openAddButtonPopup = () => {
-    openPopup(addCardPopup);
-    makeInputValid(addCardPopup, 'form__input_invalid');
-    removeInputErrors(addCardPopup);
-    makeButtonDisabled(addCardSaver);
-}
-
-// сохранение формы add Card Form
-export const addFormSubmitHandler = (evt) => {
-    evt.preventDefault();
-    checkLoading(true, addCardSaver);
-    postNewCard(endPointCards, addCardFormName.value, addCardFormContain.value)
-        .finally(() => {
-            elementsContainer.replaceChildren();
-            checkLoading(false, addCardSaver);
-            loadCards()
-        });
-    closePopup(addCardPopup);
-    addCardForm.reset();
-}
-
-export const avatarPopupHandler = (evt) => {
-    evt.preventDefault();
-    checkLoading(true, avatarSaver);
-    changeProfileAvatar(avatarFormLink.value)
-        .finally(() => {
-            checkLoading(false, avatarSaver);
-            setProfileInfo()
-        });
-    closePopup(avatarPopup);
-    avatarForm.reset();
-}
-
-//проверка загрузки
-const checkLoading = (check, button) => {
-    if (check) {
-        button.textContent = 'Сохранение...';
-    } else button.textContent = 'Сохранить';
+        .catch(catchError);
 }

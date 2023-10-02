@@ -1,8 +1,8 @@
 //функциональность валидации форм
 
-export const makeInputValid = (popup, invalidClass) => {
+export const makeInputValid = (popup) => {
   popup.querySelectorAll('.form__input').forEach((input) => {
-    input.classList.remove(invalidClass);
+    input.classList.remove('form__input_invalid');
   });
 }
 
@@ -10,6 +10,12 @@ export const removeInputErrors = popup => {
   popup.querySelectorAll('.form__input-error').forEach((inputError) => {
     inputError.classList.remove('form__input-error_active');
   });
+}
+
+export function clearPopup(popup) {
+  popup.querySelector('.form').reset();
+  makeInputValid(popup);
+  removeInputErrors(popup);
 }
 
 export function enableValidation({

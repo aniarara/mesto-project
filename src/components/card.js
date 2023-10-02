@@ -1,8 +1,9 @@
 //функции для работы с карточками проекта Mesto
 
-import { openPopup } from './utils.js';
-import { getData, endPointCards, deleteCard, myid, putData, deleteLike, endPointLikes } from './api.js';
+import { catchError, openPopup } from './utils.js';
+import { deleteCard, putData, deleteLike, endPointLikes } from './api.js';
 import { makeButtonNotDisabled } from './validate.js'
+import { userId } from "../pages/index.js"
 
 export const elementsContainer = document.querySelector('.elements');
 //image popup
@@ -10,22 +11,24 @@ const imagePopup = document.querySelector('.image-popup');
 const imagePopupImage = imagePopup.querySelector('.image-popup__image');
 const imagePopupCaption = imagePopup.querySelector('.image-popup__caption');
 
-export function loadCards() {
-    getData(endPointCards)
-        .then(json => {
-            const arr = Array.from(json)
-            arr.forEach(element => {
-                createCard(element)
-            })
-        })
-}
+// export function loadCards() {
+//     getData(endPointCards)
+//         .then(json => {
+//             const arr = Array.from(json)
+//             arr.forEach(element => {
+//                 createdCardToDOM(element)
+//             })
+//         })
+//         .catch(catchError)
+// }
 
 //функция удаления карточки по клику
 function removeCardButton(button, elementId) {
     button.addEventListener('click', (evt) => {
         const removingElement = button.closest('.element');
-        removingElement.remove();
-        deleteCard(elementId);
+        deleteCard(elementId)
+            .then(removingElement.remove())
+            .catch(catchError)
     })
 }
 
@@ -54,7 +57,7 @@ export const createCard = (element) => {
     });
 
     //проверяем и вешаем кнопки удаления
-    if (element.owner['_id'] === myid) {
+    if (element.owner['_id'] === userId) {
         makeButtonNotDisabled(trashButton);
         removeCardButton(trashButton, element['_id']);
     }
@@ -67,11 +70,15 @@ export const createCard = (element) => {
         imagePopupImage.alt = element.name;
         imagePopupCaption.textContent = element.name;
     })
-    elementsContainer.prepend(createdCard);
     return createdCard;
 };
 
-const checkLike = (like) => like['_id'] === myid;
+export const createdCardToDOM = (element) => {
+    const createdCard = createCard(element);
+    elementsContainer.prepend(createdCard);
+}
+
+const checkLike = (like) => like['_id'] === userId;
 
 const toggleLike = (elementLike) => elementLike.classList.toggle('element__like_active');
 
@@ -79,14 +86,16 @@ function likeCallback(element, cardId, elementLike, likeCounter) {
     if (Array.from(element.likes).some(checkLike)) {
         deleteLike(cardId)
             .then(json => {
-                likeCounter.textContent = json.likes.length
-            });
-        toggleLike(elementLike);
+                likeCounter.textContent = json.likes.length,
+                toggleLike(elementLike)
+            })
+            .catch(catchError)
     } else {
         putData(endPointLikes, cardId)
             .then(json => {
-                likeCounter.textContent = json.likes.length
-            });
-        toggleLike(elementLike);
+                likeCounter.textContent = json.likes.length,
+                toggleLike(elementLike)
+            })
+            .catch(catchError)
     }
 }
